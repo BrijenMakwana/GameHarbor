@@ -1,7 +1,7 @@
 import { FlatList } from "react-native";
 
 import GameCarousel from "../components/GameCarousel";
-import { MyStack } from "../components/MyStack";
+import GameGenres from "../components/GameGenres";
 
 export default function Home() {
   const currentYear = new Date().getFullYear();
@@ -26,13 +26,12 @@ export default function Home() {
   ];
 
   return (
-    <MyStack>
-      <FlatList
-        data={gameCategories}
-        renderItem={({ item }) => <GameCarousel {...item} />}
-        keyExtractor={(item) => item.id}
-        showsVerticalScrollIndicator={false}
-      />
-    </MyStack>
+    <FlatList
+      data={gameCategories}
+      renderItem={({ item }) => <GameCarousel {...item} />}
+      keyExtractor={(item) => item.id}
+      showsVerticalScrollIndicator={false}
+      ListFooterComponent={() => <GameGenres />}
+    />
   );
 }

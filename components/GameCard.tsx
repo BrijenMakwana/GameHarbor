@@ -7,6 +7,8 @@ const GameCard = (props) => {
     <Card
       marginRight={15}
       width={250}
+      theme="blue"
+      pressTheme
     >
       <Card.Header padding={0}>
         <Image
