@@ -1,14 +1,15 @@
-import { Card, H2, H3, Image, Text, YStack } from "tamagui";
+import { Card, Image, Text, YStack } from "tamagui";
 
 const GameCard = (props) => {
-  const { name, background_image } = props;
+  const { name, background_image, fullWidth } = props;
 
   return (
     <Card
-      marginRight={15}
-      width={250}
       theme="blue"
       pressTheme
+      marginVertical={10}
+      marginHorizontal={10}
+      width={!fullWidth && 270}
     >
       <Card.Header padding={0}>
         <Image
@@ -17,7 +18,6 @@ const GameCard = (props) => {
           }}
           aspectRatio={16 / 9}
           resizeMode="contain"
-          width={250}
           borderTopLeftRadius={10}
           borderTopRightRadius={10}
         />
