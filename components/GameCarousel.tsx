@@ -41,7 +41,12 @@ const GameCarousel = (props) => {
 
       <FlatList
         data={games}
-        renderItem={({ item }) => <GameCard {...item} />}
+        renderItem={({ item }) => (
+          <GameCard
+            {...item}
+            fullWidth={false}
+          />
+        )}
         keyExtractor={(item) => item.id}
         horizontal
         showsHorizontalScrollIndicator={false}
