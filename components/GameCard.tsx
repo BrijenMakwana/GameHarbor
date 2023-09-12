@@ -51,7 +51,7 @@ const GamePlatforms = (props) => {
           <MaterialCommunityIcons
             name={getPlatformIcon(item.platform.slug)}
             size={24}
-            color="#fff"
+            color="#000"
           />
         </View>
       ))}
