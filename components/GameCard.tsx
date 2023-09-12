@@ -136,7 +136,12 @@ const GameCard = (props) => {
         marginTop={20}
         gap={10}
       >
-        <Text fontSize={16}>{name}</Text>
+        <Text
+          fontSize={16}
+          fontWeight="500"
+        >
+          {name}
+        </Text>
 
         <Rating rating={rating} />
 
