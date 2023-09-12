@@ -30,6 +30,7 @@ const GameGenres = () => {
       <H3
         textTransform="capitalize"
         marginBottom={15}
+        color="$blue10Dark"
       >
         genres
       </H3>
