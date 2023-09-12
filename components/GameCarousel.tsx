@@ -35,6 +35,7 @@ const GameCarousel = (props) => {
       <H3
         textTransform="capitalize"
         marginBottom={15}
+        color="$blue10Dark"
       >
         {title}
       </H3>

@@ -39,8 +39,6 @@ const GamesCount = (props) => {
 const GenreInfo = (props) => {
   const { image_background, games_count, name, description } = props.gameGenre;
 
-  // const formatedDescription = description?.replace(/<p>|<\/p>/g, "");
-
   return (
     <>
       <YStack>
@@ -63,6 +61,7 @@ const GenreInfo = (props) => {
         <Text
           fontSize={30}
           fontWeight="600"
+          color="$blue10Dark"
         >
           {name}
         </Text>
