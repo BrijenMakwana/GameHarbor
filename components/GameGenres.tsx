@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { H3, Separator, YGroup, YStack } from "tamagui";
 
-import GameGenre from "./GameGenre";
+import CustomListItem from "./CustomListItem";
 
 const GameGenres = () => {
   const [gameGenres, setGameGenres] = useState([]);
@@ -40,9 +40,10 @@ const GameGenres = () => {
         separator={<Separator />}
       >
         {gameGenres?.map((item) => (
-          <GameGenre
+          <CustomListItem
             {...item}
             key={item.id}
+            type="genre"
           />
         ))}
       </YGroup>

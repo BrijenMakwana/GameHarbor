@@ -3,9 +3,10 @@ import { Dimensions, FlatList } from "react-native";
 import { HtmlText } from "@e-mine/react-native-html-text";
 import axios from "axios";
 import { useLocalSearchParams } from "expo-router";
-import { Avatar, H2, H3, H4, Image, Text, YGroup, YStack } from "tamagui";
+import { Avatar, H2, H4, Image, Text, XStack, YGroup, YStack } from "tamagui";
 
-import GameGenre from "../../components/GameGenre";
+import CustomListItem from "../../components/CustomListItem";
+import GameTag from "../../components/GameTag";
 import { MyScroll } from "../../components/MyScroll";
 
 const GameBanner = (props) => {
@@ -17,7 +18,7 @@ const GameBanner = (props) => {
           uri: bannerImage
         }}
         aspectRatio={16 / 9}
-        resizeMode="contain"
+        resizeMode="cover"
       />
 
       <Avatar
@@ -80,7 +81,7 @@ const GameScreenshots = (props) => {
               uri: item.image
             }}
             aspectRatio={16 / 9}
-            resizeMode="contain"
+            resizeMode="cover"
             width={Dimensions.get("window").width}
           />
         )}
@@ -106,7 +107,7 @@ const Game = () => {
           key: process.env.EXPO_PUBLIC_API_KEY
         }
       });
-      console.log(response.data.dominant_color);
+
       setGame(response.data);
     } catch (error) {
       console.log(error);
@@ -120,27 +121,19 @@ const Game = () => {
   }, []);
 
   return (
-    <MyScroll
-      showsVerticalScrollIndicator={false}
-      space={10}
-    >
+    <MyScroll showsVerticalScrollIndicator={false}>
       <GameBanner
         avatarImage={game?.background_image}
         bannerImage={game?.background_image_additional}
       />
 
-      <H2
-        color="$blue10Dark"
-        paddingHorizontal={5}
-        marginTop={60}
-      >
-        {game?.name}
-      </H2>
-
       <YStack
         padding={10}
         space={15}
+        marginTop={60}
       >
+        <H2 color="$blue10Dark">{game?.name}</H2>
+
         <GameScreenshots id={id} />
 
         <H4
@@ -154,6 +147,19 @@ const Game = () => {
           <HtmlText>{game?.description}</HtmlText>
         </Text>
 
+        <XStack
+          alignItems="center"
+          flexWrap="wrap"
+          gap={10}
+        >
+          {game?.tags?.map((item) => (
+            <GameTag
+              key={item.id}
+              {...item}
+            />
+          ))}
+        </XStack>
+
         <H4
           textTransform="capitalize"
           color="$blue10Dark"
@@ -163,9 +169,27 @@ const Game = () => {
 
         <YGroup theme="blue">
           {game?.genres?.map((item) => (
-            <GameGenre
+            <CustomListItem
               {...item}
               key={item.id}
+              type="genre"
+            />
+          ))}
+        </YGroup>
+
+        <H4
+          textTransform="capitalize"
+          color="$blue10Dark"
+        >
+          publishers
+        </H4>
+
+        <YGroup theme="blue">
+          {game?.publishers?.map((item) => (
+            <CustomListItem
+              {...item}
+              key={item.id}
+              type="publisher"
             />
           ))}
         </YGroup>

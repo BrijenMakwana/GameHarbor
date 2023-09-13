@@ -3,7 +3,7 @@ import { FlatList } from "react-native";
 import { HtmlText } from "@e-mine/react-native-html-text";
 import axios from "axios";
 import { useLocalSearchParams } from "expo-router";
-import { Image, Text, View, YStack } from "tamagui";
+import { H2, Image, Text, View, YStack } from "tamagui";
 
 import GameCard from "../../components/GameCard";
 import { formatNumber } from "../../utils/utils";
@@ -36,8 +36,9 @@ const GamesCount = (props) => {
   );
 };
 
-const GenreInfo = (props) => {
-  const { image_background, games_count, name, description } = props.gameGenre;
+const GameListInfo = (props) => {
+  const { image_background, games_count, name, description } =
+    props.gameListInfo;
 
   return (
     <>
@@ -54,53 +55,73 @@ const GenreInfo = (props) => {
       </YStack>
 
       <YStack
-        marginTop={15}
+        marginTop={30}
         padding={15}
         gap={15}
       >
-        <Text
-          fontSize={30}
-          fontWeight="600"
-          color="$blue10Dark"
-        >
-          {name}
-        </Text>
+        <H2 color="$blue10Dark">{name}</H2>
 
-        <Text>
-          <HtmlText>{description}</HtmlText>
-        </Text>
+        {description && (
+          <Text>
+            <HtmlText>{description}</HtmlText>
+          </Text>
+        )}
       </YStack>
     </>
   );
 };
 
-const GameGenreScreen = () => {
-  const [gameGenre, setGameGenre] = useState({});
+const BrowseGames = () => {
+  const [gameListInfo, setGameListInfo] = useState({});
   const [games, setGames] = useState([]);
 
-  const { id } = useLocalSearchParams();
+  const params = useLocalSearchParams();
 
-  const getGenre = async () => {
+  const { id, type } = params;
+
+  const getGameListInfo = async () => {
     try {
-      const response = await axios.get(`https://api.rawg.io/api/genres/${id}`, {
-        params: {
-          key: process.env.EXPO_PUBLIC_API_KEY
+      const response = await axios.get(
+        `https://api.rawg.io/api/${type}s/${id}`,
+        {
+          params: {
+            key: process.env.EXPO_PUBLIC_API_KEY
+          }
         }
-      });
+      );
 
-      setGameGenre(response.data);
+      setGameListInfo(response.data);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const getGenreGames = async () => {
+  const buildGameApiParams = () => {
+    const apiParams = {
+      key: process.env.EXPO_PUBLIC_API_KEY
+    };
+
+    switch (type) {
+      case "genre":
+        apiParams.genres = id;
+        break;
+      case "publisher":
+        apiParams.publishers = id;
+        break;
+      case "tag":
+        apiParams.tags = id;
+        break;
+    }
+
+    return apiParams;
+  };
+
+  const getGames = async () => {
+    const apiParams = buildGameApiParams();
+
     try {
       const response = await axios.get("https://api.rawg.io/api/games", {
-        params: {
-          genres: id,
-          key: process.env.EXPO_PUBLIC_API_KEY
-        }
+        params: apiParams
       });
 
       setGames(response.data.results);
@@ -112,8 +133,8 @@ const GameGenreScreen = () => {
   };
 
   useEffect(() => {
-    getGenre();
-    getGenreGames();
+    getGameListInfo();
+    getGames();
   }, []);
 
   return (
@@ -126,9 +147,9 @@ const GameGenreScreen = () => {
         />
       )}
       keyExtractor={(item) => item.id}
-      ListHeaderComponent={() => <GenreInfo gameGenre={gameGenre} />}
+      ListHeaderComponent={() => <GameListInfo gameListInfo={gameListInfo} />}
     />
   );
 };
 
-export default GameGenreScreen;
+export default BrowseGames;
