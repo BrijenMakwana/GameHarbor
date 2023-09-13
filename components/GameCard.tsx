@@ -1,10 +1,8 @@
-import { useState } from "react";
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import { darkColors } from "@tamagui/themes";
+import { Link } from "expo-router";
 import moment from "moment";
 import { Card, Image, Text, View, XStack, YStack } from "tamagui";
-
-import GameSheet from "./GameSheet";
 
 const GamePlatforms = (props) => {
   const { platforms } = props;
@@ -41,20 +39,18 @@ const GamePlatforms = (props) => {
       position="absolute"
       bottom={-20}
       left={20}
-      paddingVertical={5}
-      paddingHorizontal={10}
-      gap={8}
-      borderRadius={30}
-      borderWidth={3}
-      borderColor="$backgroundStrong"
-      backgroundColor="$blue10Dark"
+      paddingVertical={10}
+      paddingHorizontal={15}
+      gap={10}
+      backgroundColor="$blue3Dark"
+      borderRadius={10}
     >
       {platforms?.map((item) => (
         <View key={item.platform.id}>
           <MaterialCommunityIcons
             name={getPlatformIcon(item.platform.slug)}
             size={24}
-            color="#000"
+            color="#fff"
           />
         </View>
       ))}
@@ -117,21 +113,17 @@ const GameCard = (props) => {
     released
   } = props;
 
-  const [gameSheetIsOpen, setGameSheetIsOpen] = useState(false);
-
-  const openGameSheet = () => {
-    setGameSheetIsOpen(true);
-  };
-
   return (
-    <>
+    <Link
+      href={`/game/${id}`}
+      asChild
+    >
       <Card
         theme="blue"
         pressTheme
         marginVertical={10}
         marginHorizontal={10}
         width={!fullWidth && 270}
-        onPress={openGameSheet}
       >
         <Card.Header padding={0}>
           <Image
@@ -164,15 +156,7 @@ const GameCard = (props) => {
           <ReleasedDate released={released} />
         </YStack>
       </Card>
-
-      {gameSheetIsOpen && (
-        <GameSheet
-          open={gameSheetIsOpen}
-          setOpen={setGameSheetIsOpen}
-          id={id}
-        />
-      )}
-    </>
+    </Link>
   );
 };
 
