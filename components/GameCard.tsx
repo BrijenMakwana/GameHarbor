@@ -1,10 +1,7 @@
-import { useState } from "react";
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import { darkColors } from "@tamagui/themes";
 import moment from "moment";
 import { Card, Image, Text, View, XStack, YStack } from "tamagui";
-
-import GameSheet from "./GameSheet";
 
 const GamePlatforms = (props) => {
   const { platforms } = props;
@@ -41,20 +38,18 @@ const GamePlatforms = (props) => {
       position="absolute"
       bottom={-20}
       left={20}
-      paddingVertical={5}
-      paddingHorizontal={10}
-      gap={8}
-      borderRadius={30}
-      borderWidth={3}
-      borderColor="$backgroundStrong"
-      backgroundColor="$blue10Dark"
+      paddingVertical={10}
+      paddingHorizontal={15}
+      gap={10}
+      backgroundColor="$blue3Dark"
+      borderRadius={10}
     >
       {platforms?.map((item) => (
         <View key={item.platform.id}>
           <MaterialCommunityIcons
             name={getPlatformIcon(item.platform.slug)}
             size={24}
-            color="#000"
+            color="#fff"
           />
         </View>
       ))}
@@ -117,62 +112,45 @@ const GameCard = (props) => {
     released
   } = props;
 
-  const [gameSheetIsOpen, setGameSheetIsOpen] = useState(false);
-
-  const openGameSheet = () => {
-    setGameSheetIsOpen(true);
-  };
-
   return (
-    <>
-      <Card
-        theme="blue"
-        pressTheme
-        marginVertical={10}
-        marginHorizontal={10}
-        width={!fullWidth && 270}
-        onPress={openGameSheet}
-      >
-        <Card.Header padding={0}>
-          <Image
-            source={{
-              uri: background_image
-            }}
-            aspectRatio={16 / 9}
-            resizeMode="contain"
-            borderTopLeftRadius={10}
-            borderTopRightRadius={10}
-          />
-
-          <GamePlatforms platforms={parent_platforms} />
-        </Card.Header>
-
-        <YStack
-          padding={10}
-          marginTop={20}
-          gap={10}
-        >
-          <Text
-            fontSize={16}
-            fontWeight="500"
-          >
-            {name}
-          </Text>
-
-          <Rating rating={rating} />
-
-          <ReleasedDate released={released} />
-        </YStack>
-      </Card>
-
-      {gameSheetIsOpen && (
-        <GameSheet
-          open={gameSheetIsOpen}
-          setOpen={setGameSheetIsOpen}
-          id={id}
+    <Card
+      theme="blue"
+      pressTheme
+      marginVertical={10}
+      marginHorizontal={10}
+      width={!fullWidth && 270}
+    >
+      <Card.Header padding={0}>
+        <Image
+          source={{
+            uri: background_image
+          }}
+          aspectRatio={16 / 9}
+          resizeMode="contain"
+          borderTopLeftRadius={10}
+          borderTopRightRadius={10}
         />
-      )}
-    </>
+
+        <GamePlatforms platforms={parent_platforms} />
+      </Card.Header>
+
+      <YStack
+        padding={10}
+        marginTop={20}
+        gap={10}
+      >
+        <Text
+          fontSize={16}
+          fontWeight="500"
+        >
+          {name}
+        </Text>
+
+        <Rating rating={rating} />
+
+        <ReleasedDate released={released} />
+      </YStack>
+    </Card>
   );
 };
 
