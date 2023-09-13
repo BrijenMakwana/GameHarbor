@@ -4,7 +4,7 @@ import { Avatar, ListItem, YGroup } from "tamagui";
 
 import { formatNumber } from "../utils/utils";
 
-const GenreImage = (props) => {
+const ListItemImage = (props) => {
   const { imageUrl } = props;
 
   return (
@@ -18,19 +18,22 @@ const GenreImage = (props) => {
   );
 };
 
-const GameGenre = (props) => {
-  const { id, name, games_count, image_background } = props;
+const CustomListItem = (props) => {
+  const { id, name, games_count, image_background, type } = props;
 
   return (
     <YGroup.Item>
       <Link
-        href={`/gameGenreScreen/${id}`}
+        href={{
+          pathname: `/browseGames/${id}`,
+          params: { type: type }
+        }}
         asChild
       >
         <ListItem
           title={name}
           subTitle={`${formatNumber(games_count)} games`}
-          icon={<GenreImage imageUrl={image_background} />}
+          icon={<ListItemImage imageUrl={image_background} />}
           iconAfter={ChevronRight}
           pressTheme
         />
@@ -39,4 +42,4 @@ const GameGenre = (props) => {
   );
 };
 
-export default GameGenre;
+export default CustomListItem;
