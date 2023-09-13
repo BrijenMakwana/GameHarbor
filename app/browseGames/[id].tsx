@@ -61,9 +61,11 @@ const GameListInfo = (props) => {
       >
         <H2 color="$blue10Dark">{name}</H2>
 
-        <Text>
-          <HtmlText>{description}</HtmlText>
-        </Text>
+        {description && (
+          <Text>
+            <HtmlText>{description}</HtmlText>
+          </Text>
+        )}
       </YStack>
     </>
   );
@@ -94,19 +96,32 @@ const BrowseGames = () => {
     }
   };
 
+  const buildGameApiParams = () => {
+    const apiParams = {
+      key: process.env.EXPO_PUBLIC_API_KEY
+    };
+
+    switch (type) {
+      case "genre":
+        apiParams.genres = id;
+        break;
+      case "publisher":
+        apiParams.publishers = id;
+        break;
+      case "tag":
+        apiParams.tags = id;
+        break;
+    }
+
+    return apiParams;
+  };
+
   const getGames = async () => {
+    const apiParams = buildGameApiParams();
+
     try {
       const response = await axios.get("https://api.rawg.io/api/games", {
-        params: {
-          ...(type === "genre"
-            ? {
-                genres: id
-              }
-            : {
-                publishers: id
-              }),
-          key: process.env.EXPO_PUBLIC_API_KEY
-        }
+        params: apiParams
       });
 
       setGames(response.data.results);

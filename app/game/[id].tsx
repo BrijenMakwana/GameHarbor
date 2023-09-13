@@ -3,9 +3,10 @@ import { Dimensions, FlatList } from "react-native";
 import { HtmlText } from "@e-mine/react-native-html-text";
 import axios from "axios";
 import { useLocalSearchParams } from "expo-router";
-import { Avatar, H2, H4, Image, Text, YGroup, YStack } from "tamagui";
+import { Avatar, H2, H4, Image, Text, XStack, YGroup, YStack } from "tamagui";
 
 import CustomListItem from "../../components/CustomListItem";
+import GameTag from "../../components/GameTag";
 import { MyScroll } from "../../components/MyScroll";
 
 const GameBanner = (props) => {
@@ -80,7 +81,7 @@ const GameScreenshots = (props) => {
               uri: item.image
             }}
             aspectRatio={16 / 9}
-            resizeMode="contain"
+            resizeMode="cover"
             width={Dimensions.get("window").width}
           />
         )}
@@ -145,6 +146,19 @@ const Game = () => {
         <Text fontSize={15}>
           <HtmlText>{game?.description}</HtmlText>
         </Text>
+
+        <XStack
+          alignItems="center"
+          flexWrap="wrap"
+          gap={10}
+        >
+          {game?.tags?.map((item) => (
+            <GameTag
+              key={item.id}
+              {...item}
+            />
+          ))}
+        </XStack>
 
         <H4
           textTransform="capitalize"
