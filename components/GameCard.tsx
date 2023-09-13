@@ -1,5 +1,6 @@
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import { darkColors } from "@tamagui/themes";
+import { Link } from "expo-router";
 import moment from "moment";
 import { Card, Image, Text, View, XStack, YStack } from "tamagui";
 
@@ -113,44 +114,49 @@ const GameCard = (props) => {
   } = props;
 
   return (
-    <Card
-      theme="blue"
-      pressTheme
-      marginVertical={10}
-      marginHorizontal={10}
-      width={!fullWidth && 270}
+    <Link
+      href={`/game/${id}`}
+      asChild
     >
-      <Card.Header padding={0}>
-        <Image
-          source={{
-            uri: background_image
-          }}
-          aspectRatio={16 / 9}
-          resizeMode="contain"
-          borderTopLeftRadius={10}
-          borderTopRightRadius={10}
-        />
-
-        <GamePlatforms platforms={parent_platforms} />
-      </Card.Header>
-
-      <YStack
-        padding={10}
-        marginTop={20}
-        gap={10}
+      <Card
+        theme="blue"
+        pressTheme
+        marginVertical={10}
+        marginHorizontal={10}
+        width={!fullWidth && 270}
       >
-        <Text
-          fontSize={16}
-          fontWeight="500"
+        <Card.Header padding={0}>
+          <Image
+            source={{
+              uri: background_image
+            }}
+            aspectRatio={16 / 9}
+            resizeMode="contain"
+            borderTopLeftRadius={10}
+            borderTopRightRadius={10}
+          />
+
+          <GamePlatforms platforms={parent_platforms} />
+        </Card.Header>
+
+        <YStack
+          padding={10}
+          marginTop={20}
+          gap={10}
         >
-          {name}
-        </Text>
+          <Text
+            fontSize={16}
+            fontWeight="500"
+          >
+            {name}
+          </Text>
 
-        <Rating rating={rating} />
+          <Rating rating={rating} />
 
-        <ReleasedDate released={released} />
-      </YStack>
-    </Card>
+          <ReleasedDate released={released} />
+        </YStack>
+      </Card>
+    </Link>
   );
 };
 
