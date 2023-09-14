@@ -101,6 +101,9 @@ const BrowseGames = () => {
     };
 
     switch (type) {
+      case "platform":
+        apiParams.platforms = id;
+        break;
       case "genre":
         apiParams.genres = id;
         break;
