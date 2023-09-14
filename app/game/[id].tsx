@@ -114,9 +114,9 @@ const PCRequirements = (props) => {
   const { platforms } = props;
 
   const pcRequirements = platforms?.find((item) => item.platform.slug === "pc")
-    .requirements;
+    ?.requirements;
 
-  if (!pcRequirements) return;
+  if (!pcRequirements || Object.keys(pcRequirements).length === 0) return;
 
   const pcRequirementsMinimumArray = pcRequirements?.minimum?.split(".");
   const pcRequirementsRecommendedArray =
