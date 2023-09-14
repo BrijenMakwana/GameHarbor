@@ -1,36 +1,13 @@
-import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import { darkColors } from "@tamagui/themes";
 import { Link } from "expo-router";
 import moment from "moment";
-import { Card, Image, Text, View, XStack, YStack } from "tamagui";
+import { Card, Image, Text, XStack, YStack } from "tamagui";
+
+import GamePlatformIcon from "./GamePlatformIcon";
 
 const GamePlatforms = (props) => {
   const { platforms } = props;
-
-  const getPlatformIcon = (platformName: string) => {
-    switch (platformName) {
-      case "xbox":
-        return "microsoft-xbox";
-      case "playstation":
-        return "sony-playstation";
-      case "pc":
-        return "microsoft-windows";
-      case "nintendo":
-        return "nintendo-switch";
-      case "ios":
-        return "apple";
-      case "android":
-        return "android";
-      case "mac":
-        return "desktop-mac";
-      case "linux":
-        return "linux";
-      case "web":
-        return "web";
-      default:
-        return "file-question";
-    }
-  };
 
   if (!platforms) return;
 
@@ -46,13 +23,10 @@ const GamePlatforms = (props) => {
       borderRadius={10}
     >
       {platforms?.map((item) => (
-        <View key={item.platform.id}>
-          <MaterialCommunityIcons
-            name={getPlatformIcon(item.platform.slug)}
-            size={24}
-            color="#fff"
-          />
-        </View>
+        <GamePlatformIcon
+          platformName={item.platform.slug}
+          key={item.platform.id}
+        />
       ))}
     </XStack>
   );
@@ -64,12 +38,11 @@ const Rating = (props) => {
   return (
     <XStack
       alignItems="center"
-      padding={5}
       gap={10}
     >
       <AntDesign
         name="star"
-        size={24}
+        size={20}
         color={darkColors.yellow10}
       />
 

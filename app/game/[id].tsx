@@ -3,9 +3,21 @@ import { Dimensions, FlatList } from "react-native";
 import { HtmlText } from "@e-mine/react-native-html-text";
 import axios from "axios";
 import { useLocalSearchParams } from "expo-router";
-import { Avatar, H2, H4, Image, Text, XStack, YGroup, YStack } from "tamagui";
+import {
+  Avatar,
+  H2,
+  H4,
+  Image,
+  Separator,
+  Text,
+  XStack,
+  YGroup,
+  YStack
+} from "tamagui";
 
 import CustomListItem from "../../components/CustomListItem";
+import GameCarousel from "../../components/GameCarousel";
+import GamePlatform from "../../components/GamePlatform";
 import GameTag from "../../components/GameTag";
 import { MyScroll } from "../../components/MyScroll";
 
@@ -147,6 +159,33 @@ const Game = () => {
           <HtmlText>{game?.description}</HtmlText>
         </Text>
 
+        <H4
+          textTransform="capitalize"
+          color="$blue10Dark"
+        >
+          platforms
+        </H4>
+
+        <XStack
+          alignItems="center"
+          flexWrap="wrap"
+          gap={10}
+        >
+          {game?.platforms?.map((item) => (
+            <GamePlatform
+              key={item.platform.id}
+              {...item.platform}
+            />
+          ))}
+        </XStack>
+
+        <H4
+          textTransform="capitalize"
+          color="$blue10Dark"
+        >
+          tags
+        </H4>
+
         <XStack
           alignItems="center"
           flexWrap="wrap"
@@ -167,7 +206,11 @@ const Game = () => {
           genres
         </H4>
 
-        <YGroup theme="blue">
+        <YGroup
+          bordered
+          theme="blue"
+          separator={<Separator />}
+        >
           {game?.genres?.map((item) => (
             <CustomListItem
               {...item}
@@ -184,7 +227,11 @@ const Game = () => {
           publishers
         </H4>
 
-        <YGroup theme="blue">
+        <YGroup
+          bordered
+          theme="blue"
+          separator={<Separator />}
+        >
           {game?.publishers?.map((item) => (
             <CustomListItem
               {...item}
@@ -193,6 +240,11 @@ const Game = () => {
             />
           ))}
         </YGroup>
+
+        <GameCarousel
+          title="other games in the series"
+          apiEndpoint={`https://api.rawg.io/api/games/${id}/game-series`}
+        />
       </YStack>
     </MyScroll>
   );

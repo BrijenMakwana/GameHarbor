@@ -37,8 +37,7 @@ const GamesCount = (props) => {
 };
 
 const GameListInfo = (props) => {
-  const { image_background, games_count, name, description } =
-    props.gameListInfo;
+  const { image_background, games_count, name, description } = props;
 
   return (
     <>
@@ -102,6 +101,9 @@ const BrowseGames = () => {
     };
 
     switch (type) {
+      case "platform":
+        apiParams.platforms = id;
+        break;
       case "genre":
         apiParams.genres = id;
         break;
@@ -147,7 +149,7 @@ const BrowseGames = () => {
         />
       )}
       keyExtractor={(item) => item.id}
-      ListHeaderComponent={() => <GameListInfo gameListInfo={gameListInfo} />}
+      ListHeaderComponent={() => <GameListInfo {...gameListInfo} />}
     />
   );
 };
