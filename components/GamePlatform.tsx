@@ -19,6 +19,7 @@ const GamePlatform = (props) => {
         size="$3"
         icon={<GamePlatformIcon platformName={slug} />}
         theme="blue"
+        borderRadius={20}
       >
         {name}
       </Button>
