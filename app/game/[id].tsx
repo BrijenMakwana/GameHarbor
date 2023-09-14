@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Dimensions, FlatList } from "react-native";
 import { HtmlText } from "@e-mine/react-native-html-text";
+import { ChevronDown } from "@tamagui/lucide-icons";
 import axios from "axios";
 import { useLocalSearchParams } from "expo-router";
 import {
+  Accordion,
   Avatar,
   H2,
   H4,
   Image,
   Separator,
+  Square,
   Text,
   XStack,
   YGroup,
@@ -107,6 +110,55 @@ const GameScreenshots = (props) => {
   );
 };
 
+const PCRequirements = (props) => {
+  const { platforms } = props;
+
+  const pcRequirements = platforms?.find((item) => item.platform.slug === "pc")
+    .requirements;
+
+  if (!pcRequirements) return;
+
+  const pcRequirementsMinimumArray = pcRequirements?.minimum?.split(".");
+  const pcRequirementsRecommendedArray =
+    pcRequirements?.recommended?.split(".");
+
+  return (
+    <Accordion
+      type="multiple"
+      theme="blue"
+      marginTop={10}
+    >
+      <Accordion.Item value="pc">
+        <Accordion.Trigger
+          flexDirection="row"
+          justifyContent="space-between"
+        >
+          {({ open }) => (
+            <>
+              <Text>PC Requirements</Text>
+              <Square
+                animation="quick"
+                rotate={open ? "180deg" : "0deg"}
+              >
+                <ChevronDown />
+              </Square>
+            </>
+          )}
+        </Accordion.Trigger>
+        <Accordion.Content gap={5}>
+          {pcRequirementsMinimumArray?.map((item, index) => (
+            <Text key={index}>{item}</Text>
+          ))}
+
+          {pcRequirementsRecommendedArray?.map((item, index) => (
+            <Text key={index}>{item}</Text>
+          ))}
+        </Accordion.Content>
+      </Accordion.Item>
+    </Accordion>
+  );
+};
+
 const Game = () => {
   const { id } = useLocalSearchParams();
 
@@ -178,6 +230,8 @@ const Game = () => {
             />
           ))}
         </XStack>
+
+        <PCRequirements platforms={game?.platforms} />
 
         <H4
           textTransform="capitalize"
