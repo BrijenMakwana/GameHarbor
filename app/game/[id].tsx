@@ -16,6 +16,7 @@ import {
 } from "tamagui";
 
 import CustomListItem from "../../components/CustomListItem";
+import GameCarousel from "../../components/GameCarousel";
 import GamePlatform from "../../components/GamePlatform";
 import GameTag from "../../components/GameTag";
 import { MyScroll } from "../../components/MyScroll";
@@ -239,6 +240,11 @@ const Game = () => {
             />
           ))}
         </YGroup>
+
+        <GameCarousel
+          title="other games in the series"
+          apiEndpoint={`https://api.rawg.io/api/games/${id}/game-series`}
+        />
       </YStack>
     </MyScroll>
   );

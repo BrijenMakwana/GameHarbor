@@ -30,6 +30,8 @@ const GameCarousel = (props) => {
     getGames();
   }, []);
 
+  if (games.length === 0) return;
+
   return (
     <YStack marginVertical={10}>
       <H3

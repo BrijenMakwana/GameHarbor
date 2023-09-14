@@ -38,12 +38,11 @@ const Rating = (props) => {
   return (
     <XStack
       alignItems="center"
-      padding={5}
       gap={10}
     >
       <AntDesign
         name="star"
-        size={24}
+        size={20}
         color={darkColors.yellow10}
       />
 
