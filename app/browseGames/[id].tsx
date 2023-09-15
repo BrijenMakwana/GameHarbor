@@ -46,7 +46,6 @@ const GameListInfo = (props) => {
           source={{
             uri: image_background
           }}
-          width="100%"
           aspectRatio={16 / 9}
           resizeMode="cover"
         />
@@ -55,7 +54,7 @@ const GameListInfo = (props) => {
 
       <YStack
         marginTop={30}
-        padding={15}
+        padding={10}
         gap={15}
       >
         <H2 color="$blue10Dark">{name}</H2>
