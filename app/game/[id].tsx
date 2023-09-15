@@ -2,11 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Dimensions, FlatList } from "react-native";
 import { HtmlText } from "@e-mine/react-native-html-text";
 import { ChevronDown } from "@tamagui/lucide-icons";
+import { darkColors } from "@tamagui/themes";
 import axios from "axios";
+import { ResizeMode, Video } from "expo-av";
 import { useLocalSearchParams } from "expo-router";
 import {
   Accordion,
   Avatar,
+  Card,
+  Circle,
   H2,
   H4,
   Image,
@@ -49,6 +53,66 @@ const GameBanner = (props) => {
         <Avatar.Fallback bc="$blue10Dark" />
       </Avatar>
     </YStack>
+  );
+};
+
+const Ratings = (props) => {
+  const squareColors = {
+    exceptional: darkColors.green10,
+    recommended: darkColors.blue10,
+    meh: darkColors.orange10,
+    skip: darkColors.red10
+  };
+
+  const { ratings } = props;
+
+  return (
+    <Card
+      padded
+      gap={15}
+    >
+      <XStack
+        alignItems="center"
+        width="100%"
+      >
+        {ratings?.map((item) => (
+          <Square
+            width={`${item.percent}%`}
+            height={10}
+            backgroundColor={squareColors[item.title]}
+            key={item.id}
+          />
+        ))}
+      </XStack>
+
+      <YStack gap={10}>
+        {ratings?.map((item) => (
+          <XStack
+            key={item.id}
+            justifyContent="space-between"
+          >
+            <XStack
+              alignItems="center"
+              space={10}
+            >
+              <Circle
+                size="$0.75"
+                backgroundColor={squareColors[item.title]}
+              />
+
+              <Text textTransform="capitalize">{item.title}</Text>
+            </XStack>
+
+            <Text
+              color={squareColors[item.title]}
+              fontWeight="500"
+            >
+              {item.percent} %
+            </Text>
+          </XStack>
+        ))}
+      </YStack>
+    </Card>
   );
 };
 
@@ -98,6 +162,76 @@ const GameScreenshots = (props) => {
             aspectRatio={16 / 9}
             resizeMode="cover"
             width={Dimensions.get("window").width}
+          />
+        )}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        snapToAlignment="start"
+        decelerationRate={"fast"}
+        snapToInterval={Dimensions.get("window").width}
+      />
+    </YStack>
+  );
+};
+
+const GameTrailers = (props) => {
+  const { id } = props;
+
+  const [gameTrailers, setGameTrailers] = useState([]);
+
+  const getGameTrailers = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.rawg.io/api/games/${id}/movies`,
+        {
+          params: {
+            key: process.env.EXPO_PUBLIC_API_KEY
+          }
+        }
+      );
+
+      setGameTrailers(response.data.results);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      // This code block will always be executed
+    }
+  };
+
+  useEffect(() => {
+    getGameTrailers();
+  }, []);
+
+  if (gameTrailers.length === 0) return;
+
+  return (
+    <YStack space={15}>
+      <H4
+        textTransform="capitalize"
+        color="$blue10Dark"
+      >
+        trailers
+      </H4>
+      <FlatList
+        data={gameTrailers}
+        renderItem={({ item }) => (
+          <Video
+            style={{
+              width: Dimensions.get("window").width,
+              aspectRatio: 16 / 9
+            }}
+            source={{
+              uri: item.data.max
+            }}
+            posterSource={{
+              uri: item.preview
+            }}
+            posterStyle={{
+              resizeMode: "cover"
+            }}
+            usePoster
+            useNativeControls
+            resizeMode={ResizeMode.CONTAIN}
           />
         )}
         horizontal
@@ -192,13 +326,17 @@ const Game = () => {
       />
 
       <YStack
-        padding={10}
         space={15}
-        marginTop={60}
+        marginTop={70}
+        padding={10}
       >
         <H2 color="$blue10Dark">{game?.name}</H2>
 
+        <Ratings ratings={game?.ratings} />
+
         <GameScreenshots id={id} />
+
+        <GameTrailers id={id} />
 
         <H4
           textTransform="capitalize"
