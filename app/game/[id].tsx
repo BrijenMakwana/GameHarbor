@@ -89,15 +89,19 @@ const Ratings = (props) => {
         {ratings?.map((item) => (
           <XStack
             key={item.id}
-            alignItems="center"
-            space={10}
+            justifyContent="space-between"
           >
-            <Circle
-              size="$0.75"
-              backgroundColor={squareColors[item.title]}
-            />
+            <XStack
+              alignItems="center"
+              space={10}
+            >
+              <Circle
+                size="$0.75"
+                backgroundColor={squareColors[item.title]}
+              />
 
-            <Text textTransform="capitalize">{item.title}</Text>
+              <Text textTransform="capitalize">{item.title}</Text>
+            </XStack>
 
             <Text
               color={squareColors[item.title]}
