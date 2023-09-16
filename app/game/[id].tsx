@@ -14,9 +14,11 @@ import {
   H2,
   H4,
   Image,
+  ListItem,
   Separator,
   Square,
   Text,
+  XGroup,
   XStack,
   YGroup,
   YStack
@@ -143,6 +145,31 @@ const Ratings = (props) => {
         ))}
       </YStack>
     </Card>
+  );
+};
+
+const Metacritic = (props) => {
+  const { metacritic, rating } = props;
+  return (
+    <XGroup
+      bordered
+      separator={<Separator vertical />}
+    >
+      <XGroup.Item>
+        <ListItem
+          flex={1}
+          title={metacritic}
+          subTitle="Metascore"
+        />
+      </XGroup.Item>
+      <XGroup.Item>
+        <ListItem
+          flex={1}
+          title={rating}
+          subTitle="Rating"
+        />
+      </XGroup.Item>
+    </XGroup>
   );
 };
 
@@ -363,6 +390,11 @@ const Game = () => {
         padding={10}
       >
         <H2 color="$blue10Dark">{game?.name}</H2>
+
+        <Metacritic
+          metacritic={game?.metacritic}
+          rating={game?.rating}
+        />
 
         <Ratings ratings={game?.ratings} />
 
