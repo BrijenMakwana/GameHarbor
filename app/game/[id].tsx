@@ -38,6 +38,7 @@ const GameBanner = (props) => {
         }}
         aspectRatio={16 / 9}
         resizeMode="cover"
+        blurRadius={2}
       />
 
       <Avatar
@@ -53,6 +54,35 @@ const GameBanner = (props) => {
         <Avatar.Fallback bc="$blue10Dark" />
       </Avatar>
     </YStack>
+  );
+};
+
+const ESRBRating = (props) => {
+  const { slug } = props;
+
+  const ageRatingIcons = {
+    mature: require("../../assets/images/ageRatingIcons/mature.png"),
+    teen: require("../../assets/images/ageRatingIcons/teen.png"),
+    adults: require("../../assets/images/ageRatingIcons/adults.png"),
+    "early-childhood": require("../../assets/images/ageRatingIcons/early-childhood.png"),
+    "everyone-10-plus": require("../../assets/images/ageRatingIcons/everyone-10-plus.png"),
+    "rating-pending": require("../../assets/images/ageRatingIcons/rating-pending.png"),
+    everyone: require("../../assets/images/ageRatingIcons/everyone.png")
+  };
+
+  return (
+    <Image
+      source={ageRatingIcons[slug]}
+      resizeMode="contain"
+      style={{
+        height: 70,
+        width: 50
+      }}
+      position="absolute"
+      zIndex={10}
+      top={10}
+      right={10}
+    />
   );
 };
 
@@ -320,6 +350,8 @@ const Game = () => {
 
   return (
     <MyScroll showsVerticalScrollIndicator={false}>
+      <ESRBRating {...game?.esrb_rating} />
+
       <GameBanner
         avatarImage={game?.background_image}
         bannerImage={game?.background_image_additional}
