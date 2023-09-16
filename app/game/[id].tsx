@@ -14,9 +14,11 @@ import {
   H2,
   H4,
   Image,
+  ListItem,
   Separator,
   Square,
   Text,
+  XGroup,
   XStack,
   YGroup,
   YStack
@@ -86,6 +88,31 @@ const ESRBRating = (props) => {
   );
 };
 
+const Metacritic = (props) => {
+  const { metacritic, rating } = props;
+  return (
+    <XGroup
+      bordered
+      separator={<Separator vertical />}
+    >
+      <XGroup.Item>
+        <ListItem
+          flex={1}
+          title={metacritic || "NA"}
+          subTitle="Metascore"
+        />
+      </XGroup.Item>
+      <XGroup.Item>
+        <ListItem
+          flex={1}
+          title={rating || "NA"}
+          subTitle="Rating"
+        />
+      </XGroup.Item>
+    </XGroup>
+  );
+};
+
 const Ratings = (props) => {
   const squareColors = {
     exceptional: darkColors.green10,
@@ -95,6 +122,8 @@ const Ratings = (props) => {
   };
 
   const { ratings } = props;
+
+  if (ratings?.length === 0) return;
 
   return (
     <Card
@@ -173,6 +202,8 @@ const GameScreenshots = (props) => {
   useEffect(() => {
     getGameScreenshots();
   }, []);
+
+  if (gameScreenshots.length === 0) return;
 
   return (
     <YStack space={15}>
@@ -363,6 +394,11 @@ const Game = () => {
         padding={10}
       >
         <H2 color="$blue10Dark">{game?.name}</H2>
+
+        <Metacritic
+          metacritic={game?.metacritic}
+          rating={game?.rating}
+        />
 
         <Ratings ratings={game?.ratings} />
 
