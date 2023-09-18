@@ -487,7 +487,7 @@ const Game = () => {
           textTransform="capitalize"
           color="$blue10Dark"
         >
-          publishers
+          {game?.publishers?.length > 1 ? "publishers" : "publisher"}
         </H4>
 
         <YGroup
