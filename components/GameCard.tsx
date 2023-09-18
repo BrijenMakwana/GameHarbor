@@ -21,6 +21,8 @@ const GamePlatforms = (props) => {
       gap={10}
       backgroundColor="$blue3Dark"
       borderRadius={10}
+      flexWrap="wrap"
+      maxWidth={230}
     >
       {platforms?.map((item) => (
         <GamePlatformIcon
