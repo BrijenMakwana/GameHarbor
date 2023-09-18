@@ -26,9 +26,11 @@ import {
 
 import CustomListItem from "../../components/CustomListItem";
 import GameCarousel from "../../components/GameCarousel";
+import GameCreators from "../../components/GameCreators";
 import GamePlatform from "../../components/GamePlatform";
 import GameTag from "../../components/GameTag";
 import { MyScroll } from "../../components/MyScroll";
+import RedditPostsBtn from "../../components/RedditPostsBtn";
 
 const GameBanner = (props) => {
   const { bannerImage, avatarImage } = props;
@@ -94,6 +96,7 @@ const Metacritic = (props) => {
     <XGroup
       bordered
       separator={<Separator vertical />}
+      theme="blue"
     >
       <XGroup.Item>
         <ListItem
@@ -129,6 +132,7 @@ const Ratings = (props) => {
     <Card
       padded
       gap={15}
+      theme="blue"
     >
       <XStack
         alignItems="center"
@@ -484,7 +488,7 @@ const Game = () => {
           textTransform="capitalize"
           color="$blue10Dark"
         >
-          publishers
+          {game?.publishers?.length > 1 ? "publishers" : "publisher"}
         </H4>
 
         <YGroup
@@ -501,10 +505,42 @@ const Game = () => {
           ))}
         </YGroup>
 
+        <H4
+          textTransform="capitalize"
+          color="$blue10Dark"
+        >
+          {game?.developers?.length > 1 ? "developers" : "developer"}
+        </H4>
+
+        <YGroup
+          bordered
+          theme="blue"
+          separator={<Separator />}
+        >
+          {game?.developers?.map((item) => (
+            <CustomListItem
+              {...item}
+              key={item.id}
+              type="developer"
+            />
+          ))}
+        </YGroup>
+
         <GameCarousel
           title="other games in the series"
           apiEndpoint={`https://api.rawg.io/api/games/${id}/game-series`}
         />
+
+        <H4
+          textTransform="capitalize"
+          color="$blue10Dark"
+        >
+          creators of the game
+        </H4>
+
+        <GameCreators id={id} />
+
+        <RedditPostsBtn id={id} />
       </YStack>
     </MyScroll>
   );

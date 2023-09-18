@@ -1,0 +1,86 @@
+import { useEffect, useState } from "react";
+import { FlatList } from "react-native";
+import axios from "axios";
+import { Avatar, Card, Text } from "tamagui";
+
+const Creator = (props) => {
+  const { image, name, positions } = props;
+  return (
+    <Card
+      alignItems="center"
+      gap={10}
+      padded
+      marginHorizontal={10}
+      theme="blue"
+    >
+      <Avatar
+        circular
+        size="$10"
+      >
+        <Avatar.Image
+          src={
+            image ||
+            "https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80"
+          }
+          resizeMode="cover"
+        />
+        <Avatar.Fallback bc="$blue10Dark" />
+      </Avatar>
+
+      <Text
+        textTransform="capitalize"
+        fontWeight="500"
+      >
+        {name}
+      </Text>
+
+      <Text
+        textTransform="capitalize"
+        fontSize={13}
+        color="$gray11Dark"
+      >
+        {positions[0]?.name}
+      </Text>
+    </Card>
+  );
+};
+
+const GameCreators = (props) => {
+  const { id } = props;
+  const [gameCreators, setGameCreators] = useState([]);
+
+  const getGameCreators = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.rawg.io/api/games/${id}/development-team`,
+        {
+          params: {
+            key: process.env.EXPO_PUBLIC_API_KEY
+          }
+        }
+      );
+
+      setGameCreators(response.data.results);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      // This code block will always be executed
+    }
+  };
+
+  useEffect(() => {
+    getGameCreators();
+  }, []);
+
+  return (
+    <FlatList
+      data={gameCreators}
+      renderItem={({ item }) => <Creator {...item} />}
+      keyExtractor={(item) => item.id}
+      horizontal
+      showsHorizontalScrollIndicator={false}
+    />
+  );
+};
+
+export default GameCreators;
