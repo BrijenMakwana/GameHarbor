@@ -6,6 +6,7 @@ import { useLocalSearchParams } from "expo-router";
 import { H2, Image, Text, View, YStack } from "tamagui";
 
 import GameCard from "../../components/GameCard";
+import LoadMoreItems from "../../components/LoadMoreItems";
 import { formatNumber } from "../../utils/utils";
 
 const GamesCount = (props) => {
@@ -73,6 +74,9 @@ const BrowseGames = () => {
   const [gameListInfo, setGameListInfo] = useState({});
   const [games, setGames] = useState([]);
 
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [page, setPage] = useState(1);
+
   const params = useLocalSearchParams();
 
   const { id, type } = params;
@@ -96,7 +100,8 @@ const BrowseGames = () => {
 
   const buildGameApiParams = () => {
     const apiParams = {
-      key: process.env.EXPO_PUBLIC_API_KEY
+      key: process.env.EXPO_PUBLIC_API_KEY,
+      page: page
     };
 
     switch (type) {
@@ -128,18 +133,26 @@ const BrowseGames = () => {
         params: apiParams
       });
 
-      setGames(response.data.results);
+      setGames([...games, ...response.data.results]);
     } catch (error) {
       console.log(error);
     } finally {
-      // This code block will always be executed
+      setIsLoadingMore(false);
     }
+  };
+
+  const loadMoreGames = () => {
+    setIsLoadingMore(true);
+    setPage((prevPage) => prevPage + 1);
   };
 
   useEffect(() => {
     getGameListInfo();
-    getGames();
   }, []);
+
+  useEffect(() => {
+    getGames();
+  }, [page]);
 
   return (
     <FlatList
@@ -152,6 +165,12 @@ const BrowseGames = () => {
       )}
       keyExtractor={(item) => item.id}
       ListHeaderComponent={() => <GameListInfo {...gameListInfo} />}
+      ListFooterComponent={() => (
+        <LoadMoreItems
+          isLoadingMore={isLoadingMore}
+          onPress={loadMoreGames}
+        />
+      )}
     />
   );
 };
