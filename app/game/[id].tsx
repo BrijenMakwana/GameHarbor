@@ -26,6 +26,7 @@ import {
 
 import CustomListItem from "../../components/CustomListItem";
 import GameCarousel from "../../components/GameCarousel";
+import GameCreators from "../../components/GameCreators";
 import GamePlatform from "../../components/GamePlatform";
 import GameTag from "../../components/GameTag";
 import { MyScroll } from "../../components/MyScroll";
@@ -529,6 +530,15 @@ const Game = () => {
           title="other games in the series"
           apiEndpoint={`https://api.rawg.io/api/games/${id}/game-series`}
         />
+
+        <H4
+          textTransform="capitalize"
+          color="$blue10Dark"
+        >
+          creators of the game
+        </H4>
+
+        <GameCreators id={id} />
 
         <RedditPostsBtn id={id} />
       </YStack>
