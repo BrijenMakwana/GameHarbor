@@ -29,6 +29,7 @@ import GameCarousel from "../../components/GameCarousel";
 import GamePlatform from "../../components/GamePlatform";
 import GameTag from "../../components/GameTag";
 import { MyScroll } from "../../components/MyScroll";
+import RedditPostsBtn from "../../components/RedditPostsBtn";
 
 const GameBanner = (props) => {
   const { bannerImage, avatarImage } = props;
@@ -94,6 +95,7 @@ const Metacritic = (props) => {
     <XGroup
       bordered
       separator={<Separator vertical />}
+      theme="blue"
     >
       <XGroup.Item>
         <ListItem
@@ -129,6 +131,7 @@ const Ratings = (props) => {
     <Card
       padded
       gap={15}
+      theme="blue"
     >
       <XStack
         alignItems="center"
@@ -505,6 +508,8 @@ const Game = () => {
           title="other games in the series"
           apiEndpoint={`https://api.rawg.io/api/games/${id}/game-series`}
         />
+
+        <RedditPostsBtn id={id} />
       </YStack>
     </MyScroll>
   );
