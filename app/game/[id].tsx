@@ -504,6 +504,27 @@ const Game = () => {
           ))}
         </YGroup>
 
+        <H4
+          textTransform="capitalize"
+          color="$blue10Dark"
+        >
+          {game?.developers?.length > 1 ? "developers" : "developer"}
+        </H4>
+
+        <YGroup
+          bordered
+          theme="blue"
+          separator={<Separator />}
+        >
+          {game?.developers?.map((item) => (
+            <CustomListItem
+              {...item}
+              key={item.id}
+              type="developer"
+            />
+          ))}
+        </YGroup>
+
         <GameCarousel
           title="other games in the series"
           apiEndpoint={`https://api.rawg.io/api/games/${id}/game-series`}

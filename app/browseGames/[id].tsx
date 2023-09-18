@@ -109,6 +109,9 @@ const BrowseGames = () => {
       case "publisher":
         apiParams.publishers = id;
         break;
+      case "developer":
+        apiParams.developers = id;
+        break;
       case "tag":
         apiParams.tags = id;
         break;
