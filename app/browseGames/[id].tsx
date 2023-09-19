@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FlatList } from "react-native";
 import { HtmlText } from "@e-mine/react-native-html-text";
+import { Dot } from "@tamagui/lucide-icons";
 import axios from "axios";
 import { useLocalSearchParams } from "expo-router";
 import { Avatar, H2, Image, Text, View, XStack, YStack } from "tamagui";
@@ -44,21 +45,20 @@ const CreatorPositions = (props) => {
     <XStack
       alignItems="center"
       flexWrap="wrap"
-      gap={10}
     >
-      {positions?.map((item) => (
-        <Text
-          key={item.id}
-          textTransform="capitalize"
-          backgroundColor="$blue10Dark"
-          paddingHorizontal={10}
-          paddingVertical={5}
-          borderRadius={20}
-          fontSize={13}
-          fontWeight="500"
-        >
-          {item.name}
-        </Text>
+      {positions?.map((item, index) => (
+        <>
+          <Text
+            key={item.id}
+            color="$blue10Dark"
+            textTransform="capitalize"
+            fontWeight="500"
+          >
+            {item.name}
+          </Text>
+
+          {index < positions?.length - 1 && <Dot />}
+        </>
       ))}
     </XStack>
   );
@@ -94,7 +94,7 @@ const GameListInfo = (props) => {
           {image && (
             <Avatar
               circular
-              size="$6"
+              size="$8"
             >
               <Avatar.Image src={image} />
               <Avatar.Fallback bc="$blue10Dark" />
