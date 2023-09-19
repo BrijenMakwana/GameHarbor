@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Dimensions, FlatList } from "react-native";
 import { HtmlText } from "@e-mine/react-native-html-text";
 import { ChevronDown } from "@tamagui/lucide-icons";
 import { darkColors } from "@tamagui/themes";
 import axios from "axios";
-import { ResizeMode, Video } from "expo-av";
 import { useLocalSearchParams } from "expo-router";
 import {
   Accordion,
@@ -20,15 +18,16 @@ import {
   Text,
   XGroup,
   XStack,
-  YGroup,
   YStack
 } from "tamagui";
 
-import CustomListItem from "../../components/CustomListItem";
 import GameCarousel from "../../components/GameCarousel";
 import GameCreators from "../../components/GameCreators";
-import GamePlatform from "../../components/GamePlatform";
-import GameTag from "../../components/GameTag";
+import GameInfoContainer from "../../components/GameInfoContainer";
+import GamePlatforms from "../../components/GamePlatforms";
+import GameScreenshots from "../../components/GameScreenshots";
+import GameTags from "../../components/GameTags";
+import GameTrailers from "../../components/GameTrailers";
 import { MyScroll } from "../../components/MyScroll";
 import RedditPostsBtn from "../../components/RedditPostsBtn";
 
@@ -179,136 +178,6 @@ const Ratings = (props) => {
   );
 };
 
-const GameScreenshots = (props) => {
-  const { id } = props;
-
-  const [gameScreenshots, setGameScreenshots] = useState([]);
-
-  const getGameScreenshots = async () => {
-    try {
-      const response = await axios.get(
-        `https://api.rawg.io/api/games/${id}/screenshots`,
-        {
-          params: {
-            key: process.env.EXPO_PUBLIC_API_KEY
-          }
-        }
-      );
-
-      setGameScreenshots(response.data.results);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      // This code block will always be executed
-    }
-  };
-
-  useEffect(() => {
-    getGameScreenshots();
-  }, []);
-
-  if (gameScreenshots.length === 0) return;
-
-  return (
-    <YStack space={15}>
-      <H4
-        textTransform="capitalize"
-        color="$blue10Dark"
-      >
-        take a look
-      </H4>
-      <FlatList
-        data={gameScreenshots}
-        renderItem={({ item }) => (
-          <Image
-            source={{
-              uri: item.image
-            }}
-            aspectRatio={16 / 9}
-            resizeMode="cover"
-            width={Dimensions.get("window").width}
-          />
-        )}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        snapToAlignment="start"
-        decelerationRate={"fast"}
-        snapToInterval={Dimensions.get("window").width}
-      />
-    </YStack>
-  );
-};
-
-const GameTrailers = (props) => {
-  const { id } = props;
-
-  const [gameTrailers, setGameTrailers] = useState([]);
-
-  const getGameTrailers = async () => {
-    try {
-      const response = await axios.get(
-        `https://api.rawg.io/api/games/${id}/movies`,
-        {
-          params: {
-            key: process.env.EXPO_PUBLIC_API_KEY
-          }
-        }
-      );
-
-      setGameTrailers(response.data.results);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      // This code block will always be executed
-    }
-  };
-
-  useEffect(() => {
-    getGameTrailers();
-  }, []);
-
-  if (gameTrailers.length === 0) return;
-
-  return (
-    <YStack space={15}>
-      <H4
-        textTransform="capitalize"
-        color="$blue10Dark"
-      >
-        trailers
-      </H4>
-      <FlatList
-        data={gameTrailers}
-        renderItem={({ item }) => (
-          <Video
-            style={{
-              width: Dimensions.get("window").width,
-              aspectRatio: 16 / 9
-            }}
-            source={{
-              uri: item.data.max
-            }}
-            posterSource={{
-              uri: item.preview
-            }}
-            posterStyle={{
-              resizeMode: "cover"
-            }}
-            usePoster
-            useNativeControls
-            resizeMode={ResizeMode.CONTAIN}
-          />
-        )}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        snapToAlignment="start"
-        decelerationRate={"fast"}
-        snapToInterval={Dimensions.get("window").width}
-      />
-    </YStack>
-  );
-};
-
 const PCRequirements = (props) => {
   const { platforms } = props;
 
@@ -393,7 +262,7 @@ const Game = () => {
       />
 
       <YStack
-        space={15}
+        gap={15}
         marginTop={70}
         padding={10}
       >
@@ -421,122 +290,42 @@ const Game = () => {
           <HtmlText>{game?.description}</HtmlText>
         </Text>
 
-        <H4
-          textTransform="capitalize"
-          color="$blue10Dark"
-        >
-          platforms
-        </H4>
-
-        <XStack
-          alignItems="center"
-          flexWrap="wrap"
-          gap={10}
-        >
-          {game?.platforms?.map((item) => (
-            <GamePlatform
-              key={item.platform.id}
-              {...item.platform}
-            />
-          ))}
-        </XStack>
+        {game?.platforms?.length > 0 && (
+          <GamePlatforms platforms={game?.platforms} />
+        )}
 
         <PCRequirements platforms={game?.platforms} />
 
-        <H4
-          textTransform="capitalize"
-          color="$blue10Dark"
-        >
-          tags
-        </H4>
+        {game?.tags?.length > 0 && <GameTags tags={game?.tags} />}
 
-        <XStack
-          alignItems="center"
-          flexWrap="wrap"
-          gap={10}
-        >
-          {game?.tags?.map((item) => (
-            <GameTag
-              key={item.id}
-              {...item}
-            />
-          ))}
-        </XStack>
+        {game?.genres?.length > 0 && (
+          <GameInfoContainer
+            data={game?.genres}
+            title="genres"
+            infoType="genre"
+          />
+        )}
 
-        <H4
-          textTransform="capitalize"
-          color="$blue10Dark"
-        >
-          genres
-        </H4>
+        {game?.publishers?.length > 0 && (
+          <GameInfoContainer
+            data={game?.publishers}
+            title="publishers"
+            infoType="publisher"
+          />
+        )}
 
-        <YGroup
-          bordered
-          theme="blue"
-          separator={<Separator />}
-        >
-          {game?.genres?.map((item) => (
-            <CustomListItem
-              {...item}
-              key={item.id}
-              type="genre"
-            />
-          ))}
-        </YGroup>
-
-        <H4
-          textTransform="capitalize"
-          color="$blue10Dark"
-        >
-          {game?.publishers?.length > 1 ? "publishers" : "publisher"}
-        </H4>
-
-        <YGroup
-          bordered
-          theme="blue"
-          separator={<Separator />}
-        >
-          {game?.publishers?.map((item) => (
-            <CustomListItem
-              {...item}
-              key={item.id}
-              type="publisher"
-            />
-          ))}
-        </YGroup>
-
-        <H4
-          textTransform="capitalize"
-          color="$blue10Dark"
-        >
-          {game?.developers?.length > 1 ? "developers" : "developer"}
-        </H4>
-
-        <YGroup
-          bordered
-          theme="blue"
-          separator={<Separator />}
-        >
-          {game?.developers?.map((item) => (
-            <CustomListItem
-              {...item}
-              key={item.id}
-              type="developer"
-            />
-          ))}
-        </YGroup>
+        {game?.developers?.length > 0 && (
+          <GameInfoContainer
+            data={game?.developers}
+            title="developers"
+            infoType="developer"
+          />
+        )}
 
         <GameCarousel
           title="other games in the series"
           apiEndpoint={`https://api.rawg.io/api/games/${id}/game-series`}
         />
-
-        <H4
-          textTransform="capitalize"
-          color="$blue10Dark"
-        >
-          creators of the game
-        </H4>
 
         <GameCreators id={id} />
 
