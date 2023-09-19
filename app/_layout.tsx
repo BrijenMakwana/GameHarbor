@@ -42,7 +42,17 @@ export default function Layout() {
                 screenOptions={{
                   headerShown: false
                 }}
-              />
+              >
+                <Stack.Screen name="tabs" />
+                <Stack.Screen
+                  getId={({ params }) => params.id}
+                  name="game/[id]"
+                />
+                <Stack.Screen
+                  getId={({ params }) => params.id}
+                  name="browseGames/[id]"
+                />
+              </Stack>
             </MySafeAreaView>
           </ThemeProvider>
         </Theme>
