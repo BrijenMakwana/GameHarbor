@@ -3,7 +3,7 @@ import { FlatList } from "react-native";
 import { HtmlText } from "@e-mine/react-native-html-text";
 import axios from "axios";
 import { useLocalSearchParams } from "expo-router";
-import { H2, Image, Text, View, YStack } from "tamagui";
+import { Avatar, H2, Image, Text, View, XStack, YStack } from "tamagui";
 
 import GameCard from "../../components/GameCard";
 import LoadMoreItems from "../../components/LoadMoreItems";
@@ -37,8 +37,36 @@ const GamesCount = (props) => {
   );
 };
 
+const CreatorPositions = (props) => {
+  const { positions } = props;
+
+  return (
+    <XStack
+      alignItems="center"
+      flexWrap="wrap"
+      gap={10}
+    >
+      {positions?.map((item) => (
+        <Text
+          key={item.id}
+          textTransform="capitalize"
+          backgroundColor="$blue10Dark"
+          paddingHorizontal={10}
+          paddingVertical={5}
+          borderRadius={20}
+          fontSize={13}
+          fontWeight="500"
+        >
+          {item.name}
+        </Text>
+      ))}
+    </XStack>
+  );
+};
+
 const GameListInfo = (props) => {
-  const { image_background, games_count, name, description } = props;
+  const { image_background, image, games_count, name, positions, description } =
+    props;
 
   return (
     <>
@@ -58,7 +86,25 @@ const GameListInfo = (props) => {
         padding={10}
         gap={15}
       >
-        <H2 color="$blue10Dark">{name}</H2>
+        <XStack
+          alignItems="center"
+          gap={15}
+          flexWrap="wrap"
+        >
+          {image && (
+            <Avatar
+              circular
+              size="$6"
+            >
+              <Avatar.Image src={image} />
+              <Avatar.Fallback bc="$blue10Dark" />
+            </Avatar>
+          )}
+
+          <H2 color="$blue10Dark">{name}</H2>
+        </XStack>
+
+        {positions?.length > 0 && <CreatorPositions positions={positions} />}
 
         {description && (
           <Text>
@@ -116,6 +162,9 @@ const BrowseGames = () => {
         break;
       case "developer":
         apiParams.developers = id;
+        break;
+      case "creator":
+        apiParams.creators = id;
         break;
       case "tag":
         apiParams.tags = id;
