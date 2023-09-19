@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { FlatList } from "react-native";
 import axios from "axios";
 import { Link } from "expo-router";
-import { Avatar, Card, Text } from "tamagui";
+import { Avatar, Card, H4, Text } from "tamagui";
 
 const Creator = (props) => {
   const { id, image, name, positions } = props;
@@ -77,14 +77,24 @@ const GameCreators = (props) => {
     getGameCreators();
   }, []);
 
+  if (gameCreators?.length === 0) return;
+
   return (
-    <FlatList
-      data={gameCreators}
-      renderItem={({ item }) => <Creator {...item} />}
-      keyExtractor={(item) => item.id}
-      horizontal
-      showsHorizontalScrollIndicator={false}
-    />
+    <>
+      <H4
+        textTransform="capitalize"
+        color="$blue10Dark"
+      >
+        creators of the game
+      </H4>
+      <FlatList
+        data={gameCreators}
+        renderItem={({ item }) => <Creator {...item} />}
+        keyExtractor={(item) => item.id}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+      />
+    </>
   );
 };
 
