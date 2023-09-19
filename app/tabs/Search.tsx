@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { FlatList } from "react-native";
+import { FlatList, RefreshControl } from "react-native";
+import { darkColors } from "@tamagui/themes";
 import axios from "axios";
 
 import GameCard from "../../components/GameCard";
@@ -10,12 +11,16 @@ const Search = () => {
   const [searchedGame, setSearchedGame] = useState("");
   const [games, setGames] = useState([]);
 
+  const [isSearching, setIsSearching] = useState(false);
+
   const clearSearch = () => {
     setSearchedGame("");
     setGames([]);
   };
 
   const searchGames = async () => {
+    setIsSearching(true);
+
     try {
       const response = await axios.get("https://api.rawg.io/api/games", {
         params: {
@@ -27,6 +32,8 @@ const Search = () => {
       setGames(response.data.results);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsSearching(false);
     }
   };
 
@@ -51,6 +58,15 @@ const Search = () => {
         style={{
           marginTop: 20
         }}
+        refreshControl={
+          <RefreshControl
+            refreshing={isSearching}
+            onRefresh={searchGames}
+            colors={[darkColors.blue10]}
+            progressBackgroundColor={darkColors.gray2}
+            enabled={false}
+          />
+        }
       />
     </MyStack>
   );
