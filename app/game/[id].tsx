@@ -66,7 +66,7 @@ const ESRBRating = (props) => {
   const ageRatingIcons = {
     mature: require("../../assets/images/ageRatingIcons/mature.png"),
     teen: require("../../assets/images/ageRatingIcons/teen.png"),
-    adults: require("../../assets/images/ageRatingIcons/adults.png"),
+    "adults-only": require("../../assets/images/ageRatingIcons/adults.png"),
     "early-childhood": require("../../assets/images/ageRatingIcons/early-childhood.png"),
     "everyone-10-plus": require("../../assets/images/ageRatingIcons/everyone-10-plus.png"),
     "rating-pending": require("../../assets/images/ageRatingIcons/rating-pending.png"),
