@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { HtmlText } from "@e-mine/react-native-html-text";
-import { ChevronDown } from "@tamagui/lucide-icons";
+import { ChevronDown, ExternalLink } from "@tamagui/lucide-icons";
 import { darkColors } from "@tamagui/themes";
 import axios from "axios";
+import { openURL } from "expo-linking";
 import { useLocalSearchParams } from "expo-router";
 import {
   Accordion,
   Avatar,
+  Button,
   Card,
   Circle,
   H2,
@@ -252,6 +254,10 @@ const Game = () => {
     }
   };
 
+  const visitGameWebsite = () => {
+    openURL(game?.website);
+  };
+
   useEffect(() => {
     getGame();
   }, []);
@@ -301,6 +307,17 @@ const Game = () => {
         <Text fontSize={15}>
           <HtmlText>{game?.description}</HtmlText>
         </Text>
+
+        {game?.website && (
+          <Button
+            iconAfter={ExternalLink}
+            theme="blue"
+            onPress={visitGameWebsite}
+            alignSelf="center"
+          >
+            Visit Website
+          </Button>
+        )}
 
         {game?.platforms?.length > 0 && (
           <GamePlatforms platforms={game?.platforms} />
