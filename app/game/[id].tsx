@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { HtmlText } from "@e-mine/react-native-html-text";
-import { ChevronDown } from "@tamagui/lucide-icons";
+import { ChevronDown, ExternalLink } from "@tamagui/lucide-icons";
 import { darkColors } from "@tamagui/themes";
 import axios from "axios";
+import { openURL } from "expo-linking";
 import { useLocalSearchParams } from "expo-router";
+import moment from "moment";
 import {
   Accordion,
   Avatar,
+  Button,
   Card,
   Circle,
   H2,
@@ -252,6 +255,10 @@ const Game = () => {
     }
   };
 
+  const visitGameWebsite = () => {
+    openURL(game?.website);
+  };
+
   useEffect(() => {
     getGame();
   }, []);
@@ -280,6 +287,10 @@ const Game = () => {
       >
         <H2 color="$blue10Dark">{game?.name}</H2>
 
+        {game?.released && (
+          <Text>Release {moment(game?.released).fromNow()}</Text>
+        )}
+
         <Metacritic
           metacritic={game?.metacritic}
           rating={game?.rating}
@@ -298,9 +309,20 @@ const Game = () => {
           overview
         </H4>
 
-        <Text fontSize={15}>
+        <Text>
           <HtmlText>{game?.description}</HtmlText>
         </Text>
+
+        {game?.website && (
+          <Button
+            iconAfter={ExternalLink}
+            theme="blue"
+            onPress={visitGameWebsite}
+            alignSelf="center"
+          >
+            Visit Website
+          </Button>
+        )}
 
         {game?.platforms?.length > 0 && (
           <GamePlatforms platforms={game?.platforms} />
@@ -313,7 +335,7 @@ const Game = () => {
         {game?.genres?.length > 0 && (
           <GameInfoContainer
             data={game?.genres}
-            title="genres"
+            title="genre"
             infoType="genre"
           />
         )}
@@ -321,7 +343,7 @@ const Game = () => {
         {game?.publishers?.length > 0 && (
           <GameInfoContainer
             data={game?.publishers}
-            title="publishers"
+            title="publisher"
             infoType="publisher"
           />
         )}
@@ -329,7 +351,7 @@ const Game = () => {
         {game?.developers?.length > 0 && (
           <GameInfoContainer
             data={game?.developers}
-            title="developers"
+            title="developer"
             infoType="developer"
           />
         )}
