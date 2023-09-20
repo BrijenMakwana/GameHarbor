@@ -1,4 +1,5 @@
 import { FlatList } from "react-native";
+import { darkColors } from "@tamagui/themes";
 
 import GameCarousel from "../../components/GameCarousel";
 import GameGenres from "../../components/GameGenres";
@@ -32,6 +33,10 @@ const Home = () => {
       keyExtractor={(item) => item.id}
       showsVerticalScrollIndicator={false}
       ListFooterComponent={() => <GameGenres />}
+      contentContainerStyle={{
+        gap: 20,
+        paddingHorizontal: 5
+      }}
     />
   );
 };

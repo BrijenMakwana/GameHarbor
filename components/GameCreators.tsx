@@ -18,7 +18,6 @@ const Creator = (props) => {
         alignItems="center"
         gap={10}
         padded
-        marginHorizontal={10}
         theme="blue"
         pressTheme
       >
@@ -93,6 +92,9 @@ const GameCreators = (props) => {
         keyExtractor={(item) => item.id}
         horizontal
         showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{
+          gap: 15
+        }}
       />
     </>
   );

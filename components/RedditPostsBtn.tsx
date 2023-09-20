@@ -29,7 +29,6 @@ const RedditPost = (props) => {
 
   return (
     <Card
-      marginVertical={10}
       padded
       gap={10}
       pressTheme
@@ -136,9 +135,6 @@ const RedditPostSheet = (props) => {
             data={redditPosts}
             renderItem={({ item }) => <RedditPost {...item} />}
             keyExtractor={(item) => item.id}
-            style={{
-              padding: 15
-            }}
             ListHeaderComponent={() => (
               <H3>See what people are saying about this game</H3>
             )}
@@ -148,6 +144,10 @@ const RedditPostSheet = (props) => {
                 onPress={loadMorePosts}
               />
             )}
+            contentContainerStyle={{
+              gap: 15,
+              padding: 15
+            }}
           />
         )}
       </Sheet.Frame>

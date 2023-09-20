@@ -40,7 +40,7 @@ const Search = () => {
   return (
     <MyStack>
       <SearchBar
-        onPress={searchGames}
+        onSearch={searchGames}
         onClear={clearSearch}
         searchedGame={searchedGame}
         setSearchedGame={setSearchedGame}
@@ -55,8 +55,10 @@ const Search = () => {
           />
         )}
         keyExtractor={(item) => item.id}
-        style={{
-          marginTop: 20
+        contentContainerStyle={{
+          gap: 20,
+          marginTop: 20,
+          paddingHorizontal: 10
         }}
         refreshControl={
           <RefreshControl

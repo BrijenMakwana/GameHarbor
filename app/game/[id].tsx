@@ -14,6 +14,7 @@ import {
   Image,
   ListItem,
   Separator,
+  Spinner,
   Square,
   Text,
   XGroup,
@@ -66,7 +67,7 @@ const ESRBRating = (props) => {
   const ageRatingIcons = {
     mature: require("../../assets/images/ageRatingIcons/mature.png"),
     teen: require("../../assets/images/ageRatingIcons/teen.png"),
-    adults: require("../../assets/images/ageRatingIcons/adults.png"),
+    "adults-only": require("../../assets/images/ageRatingIcons/adults.png"),
     "early-childhood": require("../../assets/images/ageRatingIcons/early-childhood.png"),
     "everyone-10-plus": require("../../assets/images/ageRatingIcons/everyone-10-plus.png"),
     "rating-pending": require("../../assets/images/ageRatingIcons/rating-pending.png"),
@@ -231,8 +232,11 @@ const Game = () => {
   const { id } = useLocalSearchParams();
 
   const [game, setGame] = useState({});
+  const [gameIsLoading, setGameIsLoading] = useState(false);
 
   const getGame = async () => {
+    setGameIsLoading(true);
+
     try {
       const response = await axios.get(`https://api.rawg.io/api/games/${id}`, {
         params: {
@@ -244,13 +248,21 @@ const Game = () => {
     } catch (error) {
       console.log(error);
     } finally {
-      // This code block will always be executed
+      setGameIsLoading(false);
     }
   };
 
   useEffect(() => {
     getGame();
   }, []);
+
+  if (gameIsLoading)
+    return (
+      <Spinner
+        size="large"
+        color="$blue10Dark"
+      />
+    );
 
   return (
     <MyScroll showsVerticalScrollIndicator={false}>

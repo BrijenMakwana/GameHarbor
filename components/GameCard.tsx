@@ -96,8 +96,6 @@ const GameCard = (props) => {
       <Card
         theme="blue"
         pressTheme
-        marginVertical={10}
-        marginHorizontal={10}
         width={!fullWidth && 270}
       >
         <Card.Header padding={0}>

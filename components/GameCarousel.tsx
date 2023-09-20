@@ -43,10 +43,9 @@ const GameCarousel = (props) => {
   if (games.length === 0) return;
 
   return (
-    <YStack marginVertical={10}>
+    <YStack gap={20}>
       <H3
         textTransform="capitalize"
-        marginBottom={15}
         color="$blue10Dark"
       >
         {title}
@@ -69,6 +68,9 @@ const GameCarousel = (props) => {
             onPress={loadMoreGames}
           />
         )}
+        contentContainerStyle={{
+          gap: 20
+        }}
       />
     </YStack>
   );
