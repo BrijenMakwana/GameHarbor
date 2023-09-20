@@ -14,6 +14,7 @@ import {
   Image,
   ListItem,
   Separator,
+  Spinner,
   Square,
   Text,
   XGroup,
@@ -231,8 +232,11 @@ const Game = () => {
   const { id } = useLocalSearchParams();
 
   const [game, setGame] = useState({});
+  const [gameIsLoading, setGameIsLoading] = useState(false);
 
   const getGame = async () => {
+    setGameIsLoading(true);
+
     try {
       const response = await axios.get(`https://api.rawg.io/api/games/${id}`, {
         params: {
@@ -244,13 +248,21 @@ const Game = () => {
     } catch (error) {
       console.log(error);
     } finally {
-      // This code block will always be executed
+      setGameIsLoading(false);
     }
   };
 
   useEffect(() => {
     getGame();
   }, []);
+
+  if (gameIsLoading)
+    return (
+      <Spinner
+        size="large"
+        color="$blue10Dark"
+      />
+    );
 
   return (
     <MyScroll showsVerticalScrollIndicator={false}>
