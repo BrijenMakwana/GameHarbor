@@ -1,3 +1,4 @@
+import { View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { darkColors } from "@tamagui/themes";
 import { Link } from "expo-router";
@@ -57,10 +58,13 @@ const ReleasedDate = (props) => {
   const { released } = props;
 
   return (
-    <XStack
-      alignItems="center"
-      justifyContent="flex-end"
-      gap={10}
+    <View
+      style={{
+        flexDirection: "row",
+        gap: 10,
+        marginTop: "auto",
+        alignSelf: "flex-end"
+      }}
     >
       <AntDesign
         name="calendar"
@@ -73,7 +77,7 @@ const ReleasedDate = (props) => {
       >
         {moment(released).format("ll")}
       </Text>
-    </XStack>
+    </View>
   );
 };
 
@@ -98,7 +102,7 @@ const GameCard = (props) => {
         pressTheme
         width={!fullWidth && 270}
       >
-        <Card.Header padding={0}>
+        <YStack>
           <Image
             source={{
               uri: background_image
@@ -110,12 +114,13 @@ const GameCard = (props) => {
           />
 
           <GamePlatforms platforms={parent_platforms} />
-        </Card.Header>
+        </YStack>
 
         <YStack
           padding={10}
-          marginTop={20}
+          marginTop={15}
           gap={10}
+          flex={1}
         >
           <Text
             fontSize={16}
