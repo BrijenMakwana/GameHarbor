@@ -220,6 +220,9 @@ const BrowseGames = () => {
           onPress={loadMoreGames}
         />
       )}
+      contentContainerStyle={{
+        gap: 20
+      }}
     />
   );
 };
