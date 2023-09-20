@@ -2,7 +2,7 @@ import { Delete, Search } from "@tamagui/lucide-icons";
 import { Button, Input, XStack } from "tamagui";
 
 const SearchBar = (props) => {
-  const { searchedGame, setSearchedGame, onPress, onClear } = props;
+  const { searchedGame, setSearchedGame, onSearch, onClear } = props;
 
   return (
     <XStack
@@ -17,16 +17,8 @@ const SearchBar = (props) => {
         placeholder="Search your games here..."
         value={searchedGame}
         onChangeText={(text) => setSearchedGame(text)}
-        onSubmitEditing={onPress}
+        onSubmitEditing={onSearch}
         flex={1}
-      />
-
-      <Button
-        theme="blue"
-        icon={Search}
-        disabled={!searchedGame}
-        onPress={onPress}
-        opacity={searchedGame ? 1 : 0.5}
       />
 
       {searchedGame && (
@@ -36,6 +28,14 @@ const SearchBar = (props) => {
           onPress={onClear}
         />
       )}
+
+      <Button
+        theme="blue"
+        icon={Search}
+        disabled={!searchedGame}
+        onPress={onSearch}
+        opacity={searchedGame ? 1 : 0.5}
+      />
     </XStack>
   );
 };

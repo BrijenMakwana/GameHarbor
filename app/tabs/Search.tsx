@@ -40,7 +40,7 @@ const Search = () => {
   return (
     <MyStack>
       <SearchBar
-        onPress={searchGames}
+        onSearch={searchGames}
         onClear={clearSearch}
         searchedGame={searchedGame}
         setSearchedGame={setSearchedGame}
