@@ -11,7 +11,7 @@ const GameInfoContainer = (props) => {
         textTransform="capitalize"
         color="$blue10Dark"
       >
-        {title}
+        {data?.length > 1 ? `${title}s` : title}
       </H4>
 
       <YGroup

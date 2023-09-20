@@ -313,7 +313,7 @@ const Game = () => {
         {game?.genres?.length > 0 && (
           <GameInfoContainer
             data={game?.genres}
-            title="genres"
+            title="genre"
             infoType="genre"
           />
         )}
@@ -321,7 +321,7 @@ const Game = () => {
         {game?.publishers?.length > 0 && (
           <GameInfoContainer
             data={game?.publishers}
-            title="publishers"
+            title="publisher"
             infoType="publisher"
           />
         )}
@@ -329,7 +329,7 @@ const Game = () => {
         {game?.developers?.length > 0 && (
           <GameInfoContainer
             data={game?.developers}
-            title="developers"
+            title="developer"
             infoType="developer"
           />
         )}
