@@ -5,6 +5,7 @@ import { darkColors } from "@tamagui/themes";
 import axios from "axios";
 import { openURL } from "expo-linking";
 import { useLocalSearchParams } from "expo-router";
+import moment from "moment";
 import {
   Accordion,
   Avatar,
@@ -286,6 +287,10 @@ const Game = () => {
       >
         <H2 color="$blue10Dark">{game?.name}</H2>
 
+        {game?.released && (
+          <Text>Release {moment(game?.released).fromNow()}</Text>
+        )}
+
         <Metacritic
           metacritic={game?.metacritic}
           rating={game?.rating}
@@ -304,7 +309,7 @@ const Game = () => {
           overview
         </H4>
 
-        <Text fontSize={15}>
+        <Text>
           <HtmlText>{game?.description}</HtmlText>
         </Text>
 
