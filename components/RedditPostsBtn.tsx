@@ -3,7 +3,7 @@ import { FlatList } from "react-native";
 import { HtmlText } from "@e-mine/react-native-html-text";
 import { PanelTopOpen, UserCircle2 } from "@tamagui/lucide-icons";
 import axios from "axios";
-import * as Linking from "expo-linking";
+import { openURL } from "expo-linking";
 import moment from "moment";
 import {
   Button,
@@ -24,7 +24,7 @@ const RedditPost = (props) => {
   const formattedUsername = username?.replace(/^\/u\//, "");
 
   const goToRedditPostURL = () => {
-    Linking.openURL(url);
+    openURL(url);
   };
 
   return (
@@ -168,7 +168,7 @@ const RedditPostsBtn = (props) => {
       <Button
         theme="blue"
         onPress={openRedditPostSheet}
-        alignSelf="flex-end"
+        alignSelf="flex-start"
         iconAfter={PanelTopOpen}
       >
         See Reddit Posts

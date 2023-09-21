@@ -1,4 +1,4 @@
-import { Gamepad2, Home, Search, UserCircle2 } from "@tamagui/lucide-icons";
+import { Gamepad2, Home, Search } from "@tamagui/lucide-icons";
 import { darkColors } from "@tamagui/themes";
 import { Tabs } from "expo-router";
 
@@ -8,6 +8,9 @@ export default function TabLayout() {
       screenOptions={{
         tabBarActiveTintColor: darkColors.blue10,
         tabBarInactiveTintColor: darkColors.gray11,
+        tabBarStyle: {
+          backgroundColor: "#111111"
+        },
         tabBarLabelStyle: {
           textTransform: "capitalize"
         },
@@ -45,18 +48,6 @@ export default function TabLayout() {
           title: "Collections",
           tabBarIcon: ({ color }) => (
             <Gamepad2
-              size="$1.5"
-              color={color}
-            />
-          )
-        }}
-      />
-      <Tabs.Screen
-        name="Profile"
-        options={{
-          title: "Profile",
-          tabBarIcon: ({ color }) => (
-            <UserCircle2
               size="$1.5"
               color={color}
             />

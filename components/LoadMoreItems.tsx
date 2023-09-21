@@ -9,7 +9,6 @@ const LoadMoreItems = (props) => {
       flex={1}
       justifyContent="center"
       alignItems="center"
-      marginBottom={30}
     >
       {isLoadingMore ? (
         <Spinner

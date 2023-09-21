@@ -1,8 +1,63 @@
+import { useState } from "react";
 import { FlatList } from "react-native";
-import { darkColors } from "@tamagui/themes";
+import { Avatar, Card, Image, Text, XStack, YStack } from "tamagui";
 
 import GameCarousel from "../../components/GameCarousel";
 import GameGenres from "../../components/GameGenres";
+import { MyStack } from "../../components/MyStack";
+import UserSheet from "../../components/UserSheet";
+
+const UserAvatar = () => {
+  const [userSheetIsOpen, setUserSheetIsOpen] = useState(false);
+
+  const openUserSheet = () => {
+    setUserSheetIsOpen(true);
+  };
+
+  return (
+    <>
+      <Avatar
+        circular
+        size="$5"
+        onPress={openUserSheet}
+      >
+        <Avatar.Image src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" />
+        <Avatar.Fallback bc="$blue10Dark" />
+      </Avatar>
+
+      {userSheetIsOpen && (
+        <UserSheet
+          open={userSheetIsOpen}
+          setOpen={setUserSheetIsOpen}
+        />
+      )}
+    </>
+  );
+};
+
+const Header = () => {
+  return (
+    <Card
+      theme="blue"
+      padding={10}
+    >
+      <XStack
+        alignItems="center"
+        justifyContent="space-between"
+      >
+        <Image
+          source={require("../../assets/images/logo.png")}
+          resizeMode="contain"
+          style={{
+            aspectRatio: 16 / 9,
+            width: 140
+          }}
+        />
+        <UserAvatar />
+      </XStack>
+    </Card>
+  );
+};
 
 const Home = () => {
   const currentYear = new Date().getFullYear();
@@ -27,17 +82,20 @@ const Home = () => {
   ];
 
   return (
-    <FlatList
-      data={gameCategories}
-      renderItem={({ item }) => <GameCarousel {...item} />}
-      keyExtractor={(item) => item.id}
-      showsVerticalScrollIndicator={false}
-      ListFooterComponent={() => <GameGenres />}
-      contentContainerStyle={{
-        gap: 20,
-        paddingHorizontal: 5
-      }}
-    />
+    <MyStack>
+      <FlatList
+        data={gameCategories}
+        renderItem={({ item }) => <GameCarousel {...item} />}
+        keyExtractor={(item) => item.id}
+        showsVerticalScrollIndicator={false}
+        ListHeaderComponent={() => <Header />}
+        ListFooterComponent={() => <GameGenres />}
+        contentContainerStyle={{
+          gap: 15,
+          paddingHorizontal: 5
+        }}
+      />
+    </MyStack>
   );
 };
 

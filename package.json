@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@e-mine/react-native-html-text": "^0.3.3",
+    "@rneui/base": "^4.0.0-rc.8",
+    "@rneui/themed": "^4.0.0-rc.8",
     "@tamagui/animations-react-native": "^1.49.10",
     "@tamagui/babel-plugin": "^1.49.10",
     "@tamagui/config": "^1.49.10",
