@@ -25,6 +25,7 @@ import {
   YStack
 } from "tamagui";
 
+import AddToCollections from "../../components/AddToCollections";
 import GameCarousel from "../../components/GameCarousel";
 import GameCreators from "../../components/GameCreators";
 import GameInfoContainer from "../../components/GameInfoContainer";
@@ -272,100 +273,104 @@ const Game = () => {
     );
 
   return (
-    <MyScroll showsVerticalScrollIndicator={false}>
-      <ESRBRating {...game?.esrb_rating} />
+    <>
+      <MyScroll showsVerticalScrollIndicator={false}>
+        <ESRBRating {...game?.esrb_rating} />
 
-      <GameBanner
-        avatarImage={game?.background_image}
-        bannerImage={game?.background_image_additional}
-      />
-
-      <YStack
-        gap={15}
-        marginTop={70}
-        padding={10}
-      >
-        <H2 color="$blue10Dark">{game?.name}</H2>
-
-        {game?.released && (
-          <Text>Release {moment(game?.released).fromNow()}</Text>
-        )}
-
-        <Metacritic
-          metacritic={game?.metacritic}
-          rating={game?.rating}
+        <GameBanner
+          avatarImage={game?.background_image}
+          bannerImage={game?.background_image_additional}
         />
 
-        <Ratings ratings={game?.ratings} />
-
-        <GameScreenshots id={id} />
-
-        <GameTrailers id={id} />
-
-        <H4
-          textTransform="capitalize"
-          color="$blue10Dark"
+        <YStack
+          gap={15}
+          marginTop={70}
+          padding={10}
         >
-          overview
-        </H4>
+          <H2 color="$blue10Dark">{game?.name}</H2>
 
-        <Text>
-          <HtmlText>{game?.description}</HtmlText>
-        </Text>
+          {game?.released && (
+            <Text>Release {moment(game?.released).fromNow()}</Text>
+          )}
 
-        {game?.website && (
-          <Button
-            iconAfter={ExternalLink}
-            theme="blue"
-            onPress={visitGameWebsite}
-            alignSelf="center"
+          <Metacritic
+            metacritic={game?.metacritic}
+            rating={game?.rating}
+          />
+
+          <Ratings ratings={game?.ratings} />
+
+          <GameScreenshots id={id} />
+
+          <GameTrailers id={id} />
+
+          <H4
+            textTransform="capitalize"
+            color="$blue10Dark"
           >
-            Visit Website
-          </Button>
-        )}
+            overview
+          </H4>
 
-        {game?.platforms?.length > 0 && (
-          <GamePlatforms platforms={game?.platforms} />
-        )}
+          <Text>
+            <HtmlText>{game?.description}</HtmlText>
+          </Text>
 
-        <PCRequirements platforms={game?.platforms} />
+          {game?.website && (
+            <Button
+              iconAfter={ExternalLink}
+              theme="blue"
+              onPress={visitGameWebsite}
+              alignSelf="center"
+            >
+              Visit Website
+            </Button>
+          )}
 
-        {game?.tags?.length > 0 && <GameTags tags={game?.tags} />}
+          {game?.platforms?.length > 0 && (
+            <GamePlatforms platforms={game?.platforms} />
+          )}
 
-        {game?.genres?.length > 0 && (
-          <GameInfoContainer
-            data={game?.genres}
-            title="genre"
-            infoType="genre"
+          <PCRequirements platforms={game?.platforms} />
+
+          {game?.tags?.length > 0 && <GameTags tags={game?.tags} />}
+
+          {game?.genres?.length > 0 && (
+            <GameInfoContainer
+              data={game?.genres}
+              title="genre"
+              infoType="genre"
+            />
+          )}
+
+          {game?.publishers?.length > 0 && (
+            <GameInfoContainer
+              data={game?.publishers}
+              title="publisher"
+              infoType="publisher"
+            />
+          )}
+
+          {game?.developers?.length > 0 && (
+            <GameInfoContainer
+              data={game?.developers}
+              title="developer"
+              infoType="developer"
+            />
+          )}
+
+          <GameCarousel
+            title="other games in the series"
+            apiEndpoint={`https://api.rawg.io/api/games/${id}/game-series`}
           />
-        )}
 
-        {game?.publishers?.length > 0 && (
-          <GameInfoContainer
-            data={game?.publishers}
-            title="publisher"
-            infoType="publisher"
-          />
-        )}
+          <GameCreators id={id} />
 
-        {game?.developers?.length > 0 && (
-          <GameInfoContainer
-            data={game?.developers}
-            title="developer"
-            infoType="developer"
-          />
-        )}
+          <RedditPostsBtn id={id} />
+        </YStack>
+      </MyScroll>
 
-        <GameCarousel
-          title="other games in the series"
-          apiEndpoint={`https://api.rawg.io/api/games/${id}/game-series`}
-        />
-
-        <GameCreators id={id} />
-
-        <RedditPostsBtn id={id} />
-      </YStack>
-    </MyScroll>
+      <AddToCollections />
+    </>
   );
 };
 
