@@ -8,6 +8,7 @@ import { Avatar, H2, Image, Text, View, XStack, YStack } from "tamagui";
 
 import GameCard from "../../components/GameCard";
 import LoadMoreItems from "../../components/LoadMoreItems";
+import { MyStack } from "../../components/MyStack";
 import { formatNumber } from "../../utils/utils";
 
 const GamesCount = (props) => {
@@ -204,26 +205,28 @@ const BrowseGames = () => {
   }, [page]);
 
   return (
-    <FlatList
-      data={games}
-      renderItem={({ item }) => (
-        <GameCard
-          {...item}
-          fullWidth
-        />
-      )}
-      keyExtractor={(item) => item.id}
-      ListHeaderComponent={() => <GameListInfo {...gameListInfo} />}
-      ListFooterComponent={() => (
-        <LoadMoreItems
-          isLoadingMore={isLoadingMore}
-          onPress={loadMoreGames}
-        />
-      )}
-      contentContainerStyle={{
-        gap: 20
-      }}
-    />
+    <MyStack>
+      <FlatList
+        data={games}
+        renderItem={({ item }) => (
+          <GameCard
+            {...item}
+            fullWidth
+          />
+        )}
+        keyExtractor={(item) => item.id}
+        ListHeaderComponent={() => <GameListInfo {...gameListInfo} />}
+        ListFooterComponent={() => (
+          <LoadMoreItems
+            isLoadingMore={isLoadingMore}
+            onPress={loadMoreGames}
+          />
+        )}
+        contentContainerStyle={{
+          gap: 20
+        }}
+      />
+    </MyStack>
   );
 };
 

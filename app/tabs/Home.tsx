@@ -4,6 +4,7 @@ import { Avatar, XStack } from "tamagui";
 
 import GameCarousel from "../../components/GameCarousel";
 import GameGenres from "../../components/GameGenres";
+import { MyStack } from "../../components/MyStack";
 import UserSheet from "../../components/UserSheet";
 
 const UserAvatar = () => {
@@ -66,18 +67,20 @@ const Home = () => {
   ];
 
   return (
-    <FlatList
-      data={gameCategories}
-      renderItem={({ item }) => <GameCarousel {...item} />}
-      keyExtractor={(item) => item.id}
-      showsVerticalScrollIndicator={false}
-      ListHeaderComponent={() => <Header />}
-      ListFooterComponent={() => <GameGenres />}
-      contentContainerStyle={{
-        gap: 15,
-        paddingHorizontal: 5
-      }}
-    />
+    <MyStack>
+      <FlatList
+        data={gameCategories}
+        renderItem={({ item }) => <GameCarousel {...item} />}
+        keyExtractor={(item) => item.id}
+        showsVerticalScrollIndicator={false}
+        ListHeaderComponent={() => <Header />}
+        ListFooterComponent={() => <GameGenres />}
+        contentContainerStyle={{
+          gap: 15,
+          paddingHorizontal: 5
+        }}
+      />
+    </MyStack>
   );
 };
 
