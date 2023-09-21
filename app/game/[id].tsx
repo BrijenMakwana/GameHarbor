@@ -83,8 +83,8 @@ const ESRBRating = (props) => {
       source={ageRatingIcons[slug]}
       resizeMode="contain"
       style={{
-        height: 70,
-        width: 50
+        height: 65,
+        width: 45
       }}
       position="absolute"
       zIndex={10}
