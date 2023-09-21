@@ -56,7 +56,7 @@ const GameBanner = (props) => {
         bottom={-60}
         left={30}
         borderWidth={7}
-        borderColor="$backgroundStrong"
+        borderColor="#111111"
       >
         <Avatar.Image src={avatarImage} />
         <Avatar.Fallback bc="$blue10Dark" />

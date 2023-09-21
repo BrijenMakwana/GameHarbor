@@ -1,4 +1,5 @@
-import { Avatar, H2, Image, Sheet, Text, YStack } from "tamagui";
+import { LogOut } from "@tamagui/lucide-icons";
+import { Avatar, Button, H2, Image, Sheet, Text, YStack } from "tamagui";
 
 const UserBanner = (props) => {
   const { userImage } = props;
@@ -66,6 +67,16 @@ const UserSheet = (props) => {
 
           <Text>brijenma@gmail.com</Text>
         </YStack>
+
+        <Button
+          iconAfter={LogOut}
+          theme="red"
+          marginTop="auto"
+          marginHorizontal={20}
+          marginBottom={20}
+        >
+          Logout
+        </Button>
       </Sheet.Frame>
     </Sheet>
   );

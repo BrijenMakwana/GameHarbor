@@ -39,7 +39,10 @@ export default function Layout() {
             value={colorScheme === "light" ? DefaultTheme : DarkTheme}
           >
             <MySafeAreaView>
-              <StatusBar backgroundColor="#111111" />
+              <StatusBar
+                backgroundColor={colorScheme === "light" ? "#fff" : "#111111"}
+                style="auto"
+              />
               <Stack
                 screenOptions={{
                   headerShown: false

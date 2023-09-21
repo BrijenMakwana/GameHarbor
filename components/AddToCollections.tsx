@@ -47,7 +47,7 @@ const AddToCollections = () => {
         Icon={Heart}
       />
       <SpeedDialAction
-        title="played"
+        title="Played"
         Icon={Trophy}
       />
     </SpeedDial>

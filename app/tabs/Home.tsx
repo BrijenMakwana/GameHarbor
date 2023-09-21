@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FlatList } from "react-native";
-import { Avatar, XStack } from "tamagui";
+import { Avatar, Card, Image, Text, XStack, YStack } from "tamagui";
 
 import GameCarousel from "../../components/GameCarousel";
 import GameGenres from "../../components/GameGenres";
@@ -25,22 +25,37 @@ const UserAvatar = () => {
         <Avatar.Fallback bc="$blue10Dark" />
       </Avatar>
 
-      <UserSheet
-        open={userSheetIsOpen}
-        setOpen={setUserSheetIsOpen}
-      />
+      {userSheetIsOpen && (
+        <UserSheet
+          open={userSheetIsOpen}
+          setOpen={setUserSheetIsOpen}
+        />
+      )}
     </>
   );
 };
 
 const Header = () => {
   return (
-    <XStack
-      alignItems="center"
-      justifyContent="space-between"
+    <Card
+      theme="blue"
+      padding={10}
     >
-      <UserAvatar />
-    </XStack>
+      <XStack
+        alignItems="center"
+        justifyContent="space-between"
+      >
+        <Image
+          source={require("../../assets/images/logo.png")}
+          resizeMode="contain"
+          style={{
+            aspectRatio: 16 / 9,
+            width: 140
+          }}
+        />
+        <UserAvatar />
+      </XStack>
+    </Card>
   );
 };
 
