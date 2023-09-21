@@ -1,8 +1,47 @@
+import { useState } from "react";
 import { FlatList } from "react-native";
-import { darkColors } from "@tamagui/themes";
+import { Avatar, XStack } from "tamagui";
 
 import GameCarousel from "../../components/GameCarousel";
 import GameGenres from "../../components/GameGenres";
+import UserSheet from "../../components/UserSheet";
+
+const UserAvatar = () => {
+  const [userSheetIsOpen, setUserSheetIsOpen] = useState(false);
+
+  const openUserSheet = () => {
+    setUserSheetIsOpen(true);
+  };
+
+  return (
+    <>
+      <Avatar
+        circular
+        size="$5"
+        onPress={openUserSheet}
+      >
+        <Avatar.Image src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" />
+        <Avatar.Fallback bc="$blue10Dark" />
+      </Avatar>
+
+      <UserSheet
+        open={userSheetIsOpen}
+        setOpen={setUserSheetIsOpen}
+      />
+    </>
+  );
+};
+
+const Header = () => {
+  return (
+    <XStack
+      alignItems="center"
+      justifyContent="space-between"
+    >
+      <UserAvatar />
+    </XStack>
+  );
+};
 
 const Home = () => {
   const currentYear = new Date().getFullYear();
@@ -32,9 +71,10 @@ const Home = () => {
       renderItem={({ item }) => <GameCarousel {...item} />}
       keyExtractor={(item) => item.id}
       showsVerticalScrollIndicator={false}
+      ListHeaderComponent={() => <Header />}
       ListFooterComponent={() => <GameGenres />}
       contentContainerStyle={{
-        gap: 20,
+        gap: 15,
         paddingHorizontal: 5
       }}
     />
