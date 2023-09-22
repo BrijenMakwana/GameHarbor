@@ -27,7 +27,7 @@ const GamesCount = (props) => {
       justifyContent="center"
       borderRadius={100}
       borderWidth={5}
-      borderColor="$backgroundStrong"
+      borderColor="#111111"
     >
       <Text fontWeight="600">{formatNumber(gamesCount)}</Text>
       <Text
