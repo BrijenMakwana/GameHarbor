@@ -1,14 +1,14 @@
 import { StyleSheet } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import { Image, View } from "tamagui";
+import { LinearGradient } from "tamagui/linear-gradient";
 
-const GameBannerImage = (props) => {
-  const { image } = props;
+const GameBanner = (props) => {
+  const { url } = props;
 
   return (
     <View style={styles.container}>
       <Image
-        source={{ uri: image }}
+        source={{ uri: url }}
         style={styles.image}
       />
       <LinearGradient
@@ -19,7 +19,7 @@ const GameBannerImage = (props) => {
   );
 };
 
-export default GameBannerImage;
+export default GameBanner;
 
 const styles = StyleSheet.create({
   container: {

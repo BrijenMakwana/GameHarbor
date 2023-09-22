@@ -4,9 +4,9 @@ import { HtmlText } from "@e-mine/react-native-html-text";
 import { Dot } from "@tamagui/lucide-icons";
 import axios from "axios";
 import { useLocalSearchParams } from "expo-router";
-import { Avatar, H2, Image, Text, View, XStack, YStack } from "tamagui";
+import { Avatar, H2, Text, View, XStack, YStack } from "tamagui";
 
-import GameBannerImage from "../../components/GameBannerImage";
+import GameBanner from "../../components/GameBanner";
 import GameCard from "../../components/GameCard";
 import LoadMoreItems from "../../components/LoadMoreItems";
 import { MyStack } from "../../components/MyStack";
@@ -73,7 +73,7 @@ const GameListInfo = (props) => {
   return (
     <>
       <YStack>
-        <GameBannerImage image={image_background} />
+        <GameBanner url={image_background} />
         <GamesCount gamesCount={games_count} />
       </YStack>
 
