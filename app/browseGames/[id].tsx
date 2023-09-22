@@ -117,6 +117,8 @@ const BrowseGames = () => {
   const [games, setGames] = useState([]);
 
   const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [moreItemsAvailable, setMoreItemsAvailable] = useState(null);
+
   const [page, setPage] = useState(1);
 
   const params = useLocalSearchParams();
@@ -178,6 +180,7 @@ const BrowseGames = () => {
         params: apiParams
       });
 
+      setMoreItemsAvailable(response.data.next);
       setGames([...games, ...response.data.results]);
     } catch (error) {
       console.log(error);
@@ -211,12 +214,14 @@ const BrowseGames = () => {
         )}
         keyExtractor={(item) => item.id}
         ListHeaderComponent={() => <GameListInfo {...gameListInfo} />}
-        ListFooterComponent={() => (
-          <LoadMoreItems
-            isLoadingMore={isLoadingMore}
-            onPress={loadMoreGames}
-          />
-        )}
+        ListFooterComponent={() =>
+          moreItemsAvailable && (
+            <LoadMoreItems
+              isLoadingMore={isLoadingMore}
+              onPress={loadMoreGames}
+            />
+          )
+        }
         contentContainerStyle={{
           gap: 20
         }}
