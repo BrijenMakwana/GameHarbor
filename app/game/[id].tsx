@@ -8,7 +8,6 @@ import { useLocalSearchParams } from "expo-router";
 import moment from "moment";
 import {
   Accordion,
-  Avatar,
   Button,
   Card,
   Circle,
@@ -26,6 +25,7 @@ import {
 } from "tamagui";
 
 import AddToCollections from "../../components/AddToCollections";
+import GameBannerImage from "../../components/GameBannerImage";
 import GameCarousel from "../../components/GameCarousel";
 import GameCreators from "../../components/GameCreators";
 import GameInfoContainer from "../../components/GameInfoContainer";
@@ -35,35 +35,6 @@ import GameTags from "../../components/GameTags";
 import GameTrailers from "../../components/GameTrailers";
 import { MyScroll } from "../../components/MyScroll";
 import RedditPostsBtn from "../../components/RedditPostsBtn";
-
-const GameBanner = (props) => {
-  const { bannerImage, avatarImage } = props;
-  return (
-    <YStack>
-      <Image
-        source={{
-          uri: bannerImage
-        }}
-        aspectRatio={16 / 9}
-        resizeMode="cover"
-        blurRadius={2}
-      />
-
-      <Avatar
-        circular
-        size="$11"
-        position="absolute"
-        bottom={-60}
-        left={30}
-        borderWidth={7}
-        borderColor="#111111"
-      >
-        <Avatar.Image src={avatarImage} />
-        <Avatar.Fallback bc="$blue10Dark" />
-      </Avatar>
-    </YStack>
-  );
-};
 
 const ESRBRating = (props) => {
   const { slug } = props;
@@ -277,14 +248,11 @@ const Game = () => {
       <MyScroll showsVerticalScrollIndicator={false}>
         <ESRBRating {...game?.esrb_rating} />
 
-        <GameBanner
-          avatarImage={game?.background_image}
-          bannerImage={game?.background_image_additional}
-        />
+        <GameBannerImage image={game?.background_image} />
 
         <YStack
           gap={15}
-          marginTop={70}
+          marginTop={10}
           padding={10}
         >
           <H2 color="$blue10Dark">{game?.name}</H2>
