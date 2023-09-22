@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { SpeedDial } from "@rneui/themed";
 import {
+  Check,
   Gamepad,
   Heart,
   Plus,
@@ -26,17 +27,20 @@ const SpeedDialAction = (props) => {
 
 const AddToCollections = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [presentInCollections, setPresentInCollections] = useState(false);
+  const [collectionName, setCollectionName] = useState("Played");
 
   return (
     <SpeedDial
       isOpen={isOpen}
-      icon={<Plus />}
+      icon={presentInCollections ? <Check /> : <Plus />}
       openIcon={<ShieldClose />}
       onOpen={() => setIsOpen(true)}
       onClose={() => setIsOpen(false)}
       buttonStyle={{
         backgroundColor: darkColors.blue10
       }}
+      title={presentInCollections ? collectionName : ""}
     >
       <SpeedDialAction
         title="Own"
