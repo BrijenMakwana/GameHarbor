@@ -108,7 +108,7 @@ const GameCard = (props) => {
               uri: background_image
             }}
             aspectRatio={16 / 9}
-            resizeMode="contain"
+            resizeMode="cover"
             borderTopLeftRadius={10}
             borderTopRightRadius={10}
           />
