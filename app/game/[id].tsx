@@ -25,7 +25,7 @@ import {
 } from "tamagui";
 
 import AddToCollections from "../../components/AddToCollections";
-import GameBannerImage from "../../components/GameBannerImage";
+import GameBanner from "../../components/GameBanner";
 import GameCarousel from "../../components/GameCarousel";
 import GameCreators from "../../components/GameCreators";
 import GameInfoContainer from "../../components/GameInfoContainer";
@@ -248,7 +248,7 @@ const Game = () => {
       <MyScroll showsVerticalScrollIndicator={false}>
         <ESRBRating {...game?.esrb_rating} />
 
-        <GameBannerImage image={game?.background_image} />
+        <GameBanner url={game?.background_image} />
 
         <YStack
           gap={15}

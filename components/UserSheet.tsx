@@ -1,19 +1,14 @@
 import { LogOut } from "@tamagui/lucide-icons";
 import { Avatar, Button, H2, Image, Sheet, Text, YStack } from "tamagui";
 
+import GameBanner from "./GameBanner";
+
 const UserBanner = (props) => {
   const { userImage } = props;
 
   return (
     <YStack>
-      <Image
-        source={{
-          uri: "https://images.unsplash.com/photo-1533654238074-8841f6e8e610?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
-        }}
-        aspectRatio={16 / 9}
-        resizeMode="cover"
-        blurRadius={2}
-      />
+      <GameBanner url="https://images.unsplash.com/photo-1533654238074-8841f6e8e610?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" />
 
       <Avatar
         circular
@@ -22,7 +17,7 @@ const UserBanner = (props) => {
         bottom={-60}
         left={30}
         borderWidth={7}
-        borderColor="$backgroundStrong"
+        borderColor="$blue3Dark"
       >
         <Avatar.Image src={userImage} />
         <Avatar.Fallback bc="$blue10Dark" />

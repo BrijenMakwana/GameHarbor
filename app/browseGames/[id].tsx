@@ -4,9 +4,9 @@ import { HtmlText } from "@e-mine/react-native-html-text";
 import { Dot } from "@tamagui/lucide-icons";
 import axios from "axios";
 import { useLocalSearchParams } from "expo-router";
-import { Avatar, H2, Image, Text, View, XStack, YStack } from "tamagui";
+import { Avatar, H2, Text, View, XStack, YStack } from "tamagui";
 
-import GameBannerImage from "../../components/GameBannerImage";
+import GameBanner from "../../components/GameBanner";
 import GameCard from "../../components/GameCard";
 import LoadMoreItems from "../../components/LoadMoreItems";
 import { MyStack } from "../../components/MyStack";
@@ -27,7 +27,7 @@ const GamesCount = (props) => {
       justifyContent="center"
       borderRadius={100}
       borderWidth={5}
-      borderColor="$backgroundStrong"
+      borderColor="#111111"
     >
       <Text fontWeight="600">{formatNumber(gamesCount)}</Text>
       <Text
@@ -73,7 +73,7 @@ const GameListInfo = (props) => {
   return (
     <>
       <YStack>
-        <GameBannerImage image={image_background} />
+        <GameBanner url={image_background} />
         <GamesCount gamesCount={games_count} />
       </YStack>
 
@@ -117,6 +117,8 @@ const BrowseGames = () => {
   const [games, setGames] = useState([]);
 
   const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [moreItemsAvailable, setMoreItemsAvailable] = useState(null);
+
   const [page, setPage] = useState(1);
 
   const params = useLocalSearchParams();
@@ -178,6 +180,7 @@ const BrowseGames = () => {
         params: apiParams
       });
 
+      setMoreItemsAvailable(response.data.next);
       setGames([...games, ...response.data.results]);
     } catch (error) {
       console.log(error);
@@ -211,12 +214,14 @@ const BrowseGames = () => {
         )}
         keyExtractor={(item) => item.id}
         ListHeaderComponent={() => <GameListInfo {...gameListInfo} />}
-        ListFooterComponent={() => (
-          <LoadMoreItems
-            isLoadingMore={isLoadingMore}
-            onPress={loadMoreGames}
-          />
-        )}
+        ListFooterComponent={() =>
+          moreItemsAvailable && (
+            <LoadMoreItems
+              isLoadingMore={isLoadingMore}
+              onPress={loadMoreGames}
+            />
+          )
+        }
         contentContainerStyle={{
           gap: 20
         }}
