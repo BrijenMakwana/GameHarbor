@@ -6,6 +6,7 @@ import axios from "axios";
 import { useLocalSearchParams } from "expo-router";
 import { Avatar, H2, Image, Text, View, XStack, YStack } from "tamagui";
 
+import GameBannerImage from "../../components/GameBannerImage";
 import GameCard from "../../components/GameCard";
 import LoadMoreItems from "../../components/LoadMoreItems";
 import { MyStack } from "../../components/MyStack";
@@ -72,13 +73,7 @@ const GameListInfo = (props) => {
   return (
     <>
       <YStack>
-        <Image
-          source={{
-            uri: image_background
-          }}
-          aspectRatio={16 / 9}
-          resizeMode="cover"
-        />
+        <GameBannerImage image={image_background} />
         <GamesCount gamesCount={games_count} />
       </YStack>
 
