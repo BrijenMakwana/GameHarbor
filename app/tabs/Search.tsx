@@ -38,7 +38,7 @@ const Search = () => {
   };
 
   return (
-    <MyStack>
+    <MyStack gap={20}>
       <SearchBar
         onSearch={searchGames}
         onClear={clearSearch}
@@ -57,8 +57,8 @@ const Search = () => {
         keyExtractor={(item) => item.id}
         contentContainerStyle={{
           gap: 20,
-          marginTop: 20,
-          paddingHorizontal: 10
+          paddingHorizontal: 10,
+          paddingBottom: 20
         }}
         refreshControl={
           <RefreshControl
