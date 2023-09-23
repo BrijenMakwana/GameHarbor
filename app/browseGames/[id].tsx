@@ -164,9 +164,6 @@ const BrowseGames = () => {
       case "creator":
         apiParams.creators = id;
         break;
-      case "tag":
-        apiParams.tags = id;
-        break;
     }
 
     return apiParams;

@@ -1,6 +1,6 @@
-import { H4, XStack } from "tamagui";
-
-import GameTag from "./GameTag";
+import { Dot } from "@tamagui/lucide-icons";
+import { darkColors } from "@tamagui/themes";
+import { H4, Text, XStack } from "tamagui";
 
 const GameTags = (props) => {
   const { tags } = props;
@@ -17,13 +17,18 @@ const GameTags = (props) => {
       <XStack
         alignItems="center"
         flexWrap="wrap"
-        gap={10}
       >
-        {tags?.map((item) => (
-          <GameTag
-            key={item.id}
-            {...item}
-          />
+        {tags?.map((item, index) => (
+          <>
+            <Text
+              key={item.id}
+              textTransform="capitalize"
+            >
+              {item.name}
+            </Text>
+
+            {index < tags?.length - 1 && <Dot color={darkColors.blue10} />}
+          </>
         ))}
       </XStack>
     </>
