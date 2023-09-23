@@ -12,6 +12,8 @@ const GameCarousel = (props) => {
   const [games, setGames] = useState([]);
 
   const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [moreItemsAvailable, setMoreItemsAvailable] = useState(null);
+
   const [page, setPage] = useState(1);
 
   const getGames = async () => {
@@ -23,6 +25,7 @@ const GameCarousel = (props) => {
         }
       });
 
+      setMoreItemsAvailable(response.data.next);
       setGames([...games, ...response.data.results]);
     } catch (error) {
       console.log(error);
@@ -62,12 +65,14 @@ const GameCarousel = (props) => {
         keyExtractor={(item) => item.id}
         horizontal
         showsHorizontalScrollIndicator={false}
-        ListFooterComponent={() => (
-          <LoadMoreItems
-            isLoadingMore={isLoadingMore}
-            onPress={loadMoreGames}
-          />
-        )}
+        ListFooterComponent={() =>
+          moreItemsAvailable && (
+            <LoadMoreItems
+              isLoadingMore={isLoadingMore}
+              onPress={loadMoreGames}
+            />
+          )
+        }
         contentContainerStyle={{
           gap: 20
         }}
