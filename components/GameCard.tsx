@@ -35,7 +35,7 @@ const GamePlatforms = (props) => {
   );
 };
 
-const Rating = (props) => {
+export const Rating = (props) => {
   const { rating } = props;
 
   return (
@@ -54,7 +54,7 @@ const Rating = (props) => {
   );
 };
 
-const ReleasedDate = (props) => {
+export const ReleasedDate = (props) => {
   const { released } = props;
 
   return (
