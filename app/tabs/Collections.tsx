@@ -5,7 +5,7 @@ import { RefreshCw } from "@tamagui/lucide-icons";
 import { darkColors } from "@tamagui/themes";
 import { Tabs, Text } from "tamagui";
 
-import GameTile from "../../components/GameTile";
+import CollectionGameCard from "../../components/CollectionGameCard";
 import { MyStack } from "../../components/MyStack";
 import { db, doc, getDoc } from "../../firebase/firebase";
 
@@ -32,7 +32,7 @@ const TabContent = (props) => {
     >
       <FlatList
         data={data}
-        renderItem={({ item }) => <GameTile gameID={item} />}
+        renderItem={({ item }) => <CollectionGameCard gameID={item} />}
         keyExtractor={(item) => item.id}
         contentContainerStyle={{
           padding: 10,

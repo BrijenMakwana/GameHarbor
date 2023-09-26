@@ -2,12 +2,11 @@ import { useEffect, useState } from "react";
 import { ListItem } from "@rneui/themed";
 import { Delete } from "@tamagui/lucide-icons";
 import axios from "axios";
-import { Link } from "expo-router";
-import { Avatar, Button, Card, H5, YStack } from "tamagui";
+import { Button } from "tamagui";
 
-import { Rating, ReleasedDate } from "./GameCard";
+import GameCard from "./GameCard";
 
-const GameTile = (props) => {
+const CollectionGameCard = (props) => {
   const { gameID } = props;
 
   const [game, setGame] = useState({});
@@ -55,42 +54,12 @@ const GameTile = (props) => {
         backgroundColor: "#111111"
       }}
     >
-      <ListItem.Content>
-        <Link
-          href={`/game/${gameID}`}
-          asChild
-        >
-          <Card
-            flexDirection="row"
-            alignItems="center"
-            justifyContent="space-between"
-            gap={20}
-            padded
-            pressTheme
-          >
-            <Avatar
-              circular
-              size="$8"
-            >
-              <Avatar.Image src={game?.background_image} />
-              <Avatar.Fallback bc="$blue10Dark" />
-            </Avatar>
-
-            <YStack
-              flex={1}
-              gap={10}
-            >
-              <H5 numberOfLines={1}>{game?.name}</H5>
-
-              <Rating rating={game?.rating} />
-
-              <ReleasedDate released={game?.released} />
-            </YStack>
-          </Card>
-        </Link>
-      </ListItem.Content>
+      <GameCard
+        {...game}
+        fullWidth
+      />
     </ListItem.Swipeable>
   );
 };
 
-export default GameTile;
+export default CollectionGameCard;

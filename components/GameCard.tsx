@@ -35,7 +35,7 @@ const GamePlatforms = (props) => {
   );
 };
 
-export const Rating = (props) => {
+const Rating = (props) => {
   const { rating } = props;
 
   return (
@@ -54,7 +54,7 @@ export const Rating = (props) => {
   );
 };
 
-export const ReleasedDate = (props) => {
+const ReleasedDate = (props) => {
   const { released } = props;
 
   return (
@@ -108,6 +108,7 @@ const GameCard = (props) => {
               uri: background_image
             }}
             aspectRatio={16 / 9}
+            width="100%"
             resizeMode="cover"
             borderTopLeftRadius={10}
             borderTopRightRadius={10}
