@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { ListItem } from "@rneui/themed";
 import { Delete } from "@tamagui/lucide-icons";
-import { darkColors } from "@tamagui/themes";
 import axios from "axios";
 import { Link } from "expo-router";
 import { Avatar, Button, Card, H5, YStack } from "tamagui";

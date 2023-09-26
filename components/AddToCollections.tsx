@@ -8,7 +8,6 @@ import {
   Trophy
 } from "@tamagui/lucide-icons";
 import { darkColors } from "@tamagui/themes";
-import { Spinner } from "tamagui";
 
 import { arrayUnion, db, doc, setDoc } from "../firebase/firebase";
 
@@ -91,13 +90,14 @@ const AddToCollections = (props) => {
   return (
     <SpeedDial
       isOpen={isOpen}
-      icon={isAdding ? <Spinner color="#fff" /> : <Plus />}
+      icon={<Plus />}
       openIcon={<ShieldClose />}
       onOpen={() => setIsOpen(true)}
       onClose={() => setIsOpen(false)}
       buttonStyle={{
         backgroundColor: darkColors.blue10
       }}
+      loading={isAdding}
     >
       <SpeedDialAction
         title="Own"
