@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { FlatList } from "react-native";
-import { Avatar, Card, Image, Text, XStack, YStack } from "tamagui";
+import { Avatar, Card, Image, XStack, YStack } from "tamagui";
 
 import GameCarousel from "../../components/GameCarousel";
+import GameConsoleCarousel from "../../components/GameConsoleCarousel";
 import GameGenres from "../../components/GameGenres";
 import { MyStack } from "../../components/MyStack";
 import UserSheet from "../../components/UserSheet";
@@ -89,7 +90,12 @@ const Home = () => {
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={() => <Header />}
-        ListFooterComponent={() => <GameGenres />}
+        ListFooterComponent={() => (
+          <YStack gap={15}>
+            <GameConsoleCarousel />
+            <GameGenres />
+          </YStack>
+        )}
         contentContainerStyle={{
           gap: 15,
           paddingHorizontal: 5
