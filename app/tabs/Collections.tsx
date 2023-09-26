@@ -36,7 +36,7 @@ const TabContent = (props) => {
         keyExtractor={(item) => item.id}
         contentContainerStyle={{
           padding: 10,
-          gap: 15
+          gap: 20
         }}
       />
     </Tabs.Content>
