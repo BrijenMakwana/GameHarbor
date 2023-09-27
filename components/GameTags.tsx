@@ -19,16 +19,14 @@ const GameTags = (props) => {
         flexWrap="wrap"
       >
         {tags?.map((item, index) => (
-          <>
-            <Text
-              key={item.id}
-              textTransform="capitalize"
-            >
-              {item.name}
-            </Text>
+          <XStack
+            key={item.id}
+            alignItems="center"
+          >
+            <Text textTransform="capitalize">{item.name}</Text>
 
             {index < tags?.length - 1 && <Dot color={darkColors.blue10} />}
-          </>
+          </XStack>
         ))}
       </XStack>
     </>

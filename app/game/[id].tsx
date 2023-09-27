@@ -337,7 +337,7 @@ const Game = () => {
         </YStack>
       </MyScroll>
 
-      <AddToCollections />
+      <AddToCollections gameID={id} />
     </>
   );
 };
