@@ -10,9 +10,9 @@ const GameConsole = (props) => {
   const getConsoleImage = () => {
     switch (slug) {
       case "pc":
-        return "https://images.unsplash.com/photo-1622012584127-dd1d3ed726d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGdhbWluZyUyMHBjfGVufDB8MXwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60";
+        return "https://images.unsplash.com/photo-1603025832572-c5ba1fb6be8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGdhbWluZyUyMHBjfGVufDB8MXwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60";
       case "playstation5":
-        return "https://images.unsplash.com/photo-1607853202273-797f1c22a38e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cGxheXN0YXRpb24lMjA1fGVufDB8MXwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60";
+        return "https://images.unsplash.com/photo-1622297845775-5ff3fef71d13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGxheXN0YXRpb24lMjA1fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60";
       case "playstation4":
         return "https://images.unsplash.com/photo-1542549237432-a176cb9d5e5e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cGxheXN0YXRpb24lMjA0fGVufDB8MXwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60";
       case "xbox-one":
