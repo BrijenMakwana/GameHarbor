@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { Dot } from "@tamagui/lucide-icons";
 import { darkColors } from "@tamagui/themes";
 import { H4, Text, XStack } from "tamagui";
@@ -19,14 +20,11 @@ const GameTags = (props) => {
         flexWrap="wrap"
       >
         {tags?.map((item, index) => (
-          <XStack
-            key={item.id}
-            alignItems="center"
-          >
+          <Fragment key={item.id}>
             <Text textTransform="capitalize">{item.name}</Text>
 
             {index < tags?.length - 1 && <Dot color={darkColors.blue10} />}
-          </XStack>
+          </Fragment>
         ))}
       </XStack>
     </>

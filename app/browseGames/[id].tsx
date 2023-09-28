@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { FlatList } from "react-native";
 import { HtmlText } from "@e-mine/react-native-html-text";
 import { Dot } from "@tamagui/lucide-icons";
@@ -49,9 +49,8 @@ const CreatorPositions = (props) => {
       flexWrap="wrap"
     >
       {positions?.map((item, index) => (
-        <>
+        <Fragment key={item.id}>
           <Text
-            key={item.id}
             color="$blue10Dark"
             textTransform="capitalize"
             fontWeight="500"
@@ -60,7 +59,7 @@ const CreatorPositions = (props) => {
           </Text>
 
           {index < positions?.length - 1 && <Dot />}
-        </>
+        </Fragment>
       ))}
     </XStack>
   );
