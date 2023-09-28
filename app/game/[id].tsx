@@ -31,6 +31,7 @@ import GameCreators from "../../components/GameCreators";
 import GameInfoContainer from "../../components/GameInfoContainer";
 import GamePlatforms from "../../components/GamePlatforms";
 import GameScreenshots from "../../components/GameScreenshots";
+import GameStores from "../../components/GameStores";
 import GameTags from "../../components/GameTags";
 import GameTrailers from "../../components/GameTrailers";
 import { MyScroll } from "../../components/MyScroll";
@@ -325,6 +326,8 @@ const Game = () => {
               infoType="developer"
             />
           )}
+
+          <GameStores id={id} />
 
           <GameCarousel
             title="other games in the series"

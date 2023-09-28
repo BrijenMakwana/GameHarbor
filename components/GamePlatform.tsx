@@ -15,7 +15,6 @@ const GamePlatform = (props) => {
       asChild
     >
       <Button
-        alignSelf="center"
         size="$3"
         icon={<GamePlatformIcon platformName={slug} />}
         theme="blue"
