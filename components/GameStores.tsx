@@ -46,6 +46,10 @@ const GameStore = (props) => {
         storeIconName = "store";
         storeTitle = "Epic Games";
         break;
+      case 9:
+        storeIconName = "gamepad-variant";
+        storeTitle = "itch.io";
+        break;
       default:
         storeIconName = "file-question";
         storeTitle = "Unknown";
