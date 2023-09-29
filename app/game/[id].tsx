@@ -329,10 +329,12 @@ const Game = () => {
 
           <GameStores id={id} />
 
-          <GameCarousel
-            title="other games in the series"
-            apiEndpoint={`https://api.rawg.io/api/games/${id}/game-series`}
-          />
+          {game?.game_series_count > 0 && (
+            <GameCarousel
+              title="other games in the series"
+              apiEndpoint={`https://api.rawg.io/api/games/${id}/game-series`}
+            />
+          )}
 
           <GameCreators id={id} />
 

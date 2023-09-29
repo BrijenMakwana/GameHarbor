@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { ExternalLink } from "@tamagui/lucide-icons";
 import axios from "axios";
 import { openURL } from "expo-linking";
 import { Button, H4, XStack } from "tamagui";
@@ -50,24 +51,23 @@ const GameStore = (props) => {
         storeTitle = "Unknown";
     }
 
-    const StoreIcon = (
-      <MaterialCommunityIcons
-        name={storeIconName}
-        size={24}
-        color="#fff"
-      />
-    );
-
-    return { StoreIcon, storeTitle };
+    return { storeIconName, storeTitle };
   };
 
-  const { StoreIcon, storeTitle } = getStoreInfo();
+  const { storeIconName, storeTitle } = getStoreInfo();
 
   return (
     <Button
       onPress={goToStore}
       theme="blue"
-      iconAfter={StoreIcon}
+      icon={
+        <MaterialCommunityIcons
+          name={storeIconName}
+          size={24}
+          color="#fff"
+        />
+      }
+      iconAfter={ExternalLink}
     >
       {storeTitle}
     </Button>
