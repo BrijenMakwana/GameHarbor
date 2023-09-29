@@ -38,7 +38,7 @@ const Search = () => {
   };
 
   return (
-    <MyStack gap={20}>
+    <MyStack gap={10}>
       <SearchBar
         onSearch={searchGames}
         onClear={clearSearch}
