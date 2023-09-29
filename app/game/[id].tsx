@@ -253,7 +253,6 @@ const Game = () => {
 
         <YStack
           gap={15}
-          marginTop={10}
           padding={10}
         >
           <H2 color="$blue10Dark">{game?.name}</H2>
@@ -268,11 +267,18 @@ const Game = () => {
           />
 
           <Ratings ratings={game?.ratings} />
+        </YStack>
 
+        <YStack gap={15}>
           <GameScreenshots id={id} />
 
           <GameTrailers id={id} />
+        </YStack>
 
+        <YStack
+          gap={15}
+          padding={10}
+        >
           <H4
             textTransform="capitalize"
             color="$blue10Dark"
