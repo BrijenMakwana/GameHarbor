@@ -34,10 +34,11 @@ const GameScreenshots = (props) => {
   if (gameScreenshots.length === 0) return;
 
   return (
-    <YStack space={15}>
+    <YStack gap={15}>
       <H4
         textTransform="capitalize"
         color="$blue10Dark"
+        paddingHorizontal={10}
       >
         take a look
       </H4>
