@@ -45,41 +45,18 @@ const AddToCollections = (props) => {
     try {
       const gameRef = doc(db, "games", "brijenma@gmail.com");
 
-      switch (collectionID) {
-        case GAME_COLLECTION.OWN:
-          await setDoc(
-            gameRef,
-            {
-              own: arrayUnion(gameID)
-            },
-            {
-              merge: true
-            }
-          );
-          break;
-        case GAME_COLLECTION.WANT_TO_PLAY:
-          await setDoc(
-            gameRef,
-            {
-              wantToPlay: arrayUnion(gameID)
-            },
-            {
-              merge: true
-            }
-          );
-          break;
-        case GAME_COLLECTION.PLAYED:
-          await setDoc(
-            gameRef,
-            {
-              played: arrayUnion(gameID)
-            },
-            {
-              merge: true
-            }
-          );
-          break;
-      }
+      await setDoc(
+        gameRef,
+        {
+          collection: arrayUnion({
+            gameID: gameID,
+            collectionID: collectionID
+          })
+        },
+        {
+          merge: true
+        }
+      );
     } catch (e) {
       console.error("Error adding document: ", e);
     } finally {

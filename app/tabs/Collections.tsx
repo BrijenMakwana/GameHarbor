@@ -32,7 +32,7 @@ const TabContent = (props) => {
     >
       <FlatList
         data={data}
-        renderItem={({ item }) => <CollectionGameCard gameID={item} />}
+        renderItem={({ item }) => <CollectionGameCard gameID={item.gameID} />}
         keyExtractor={(item) => item.id}
         contentContainerStyle={{
           padding: 10,
@@ -47,6 +47,32 @@ const Collections = () => {
   const [collections, setCollections] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
+  const distributeGames = async (games) => {
+    const own = [];
+    const wantToPlay = [];
+    const played = [];
+
+    games.forEach((item) => {
+      switch (item.collectionID) {
+        case 0:
+          own.push(item);
+          break;
+        case 1:
+          wantToPlay.push(item);
+          break;
+        case 2:
+          played.push(item);
+          break;
+      }
+    });
+
+    return {
+      own: own,
+      wantToPlay: wantToPlay,
+      played: played
+    };
+  };
+
   const getGamesFromCollections = async () => {
     setIsLoading(true);
 
@@ -55,8 +81,10 @@ const Collections = () => {
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        setCollections(docSnap.data());
-        console.log("Document data:", docSnap.data());
+        console.log("Document data:", docSnap.data().collection);
+
+        const collectionObj = await distributeGames(docSnap.data()?.collection);
+        setCollections(collectionObj);
       } else {
         // docSnap.data() will be undefined in this case
         console.log("No such document!");
