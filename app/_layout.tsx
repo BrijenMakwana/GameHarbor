@@ -11,6 +11,7 @@ import { StatusBar } from "expo-status-bar";
 import { TamaguiProvider, Text, Theme } from "tamagui";
 
 import { MySafeAreaView } from "../components/MySafeAreaView";
+import GameContextProvider from "../context/context";
 import config from "../tamagui.config";
 
 SplashScreen.preventAutoHideAsync();
@@ -43,21 +44,23 @@ export default function Layout() {
                 backgroundColor={colorScheme === "light" ? "#fff" : "#111111"}
                 style="auto"
               />
-              <Stack
-                screenOptions={{
-                  headerShown: false
-                }}
-              >
-                <Stack.Screen name="tabs" />
-                <Stack.Screen
-                  getId={({ params }) => params.id}
-                  name="game/[id]"
-                />
-                <Stack.Screen
-                  getId={({ params }) => params.id}
-                  name="browseGames/[id]"
-                />
-              </Stack>
+              <GameContextProvider>
+                <Stack
+                  screenOptions={{
+                    headerShown: false
+                  }}
+                >
+                  <Stack.Screen name="tabs" />
+                  <Stack.Screen
+                    getId={({ params }) => params.id}
+                    name="game/[id]"
+                  />
+                  <Stack.Screen
+                    getId={({ params }) => params.id}
+                    name="browseGames/[id]"
+                  />
+                </Stack>
+              </GameContextProvider>
             </MySafeAreaView>
           </ThemeProvider>
         </Theme>

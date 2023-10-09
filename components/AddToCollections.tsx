@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { SpeedDial } from "@rneui/themed";
 import {
+  Check,
   Gamepad,
   Heart,
   Plus,
@@ -9,9 +10,10 @@ import {
 } from "@tamagui/lucide-icons";
 import { darkColors } from "@tamagui/themes";
 
+import { GameContext } from "../context/context";
 import { arrayUnion, db, doc, setDoc } from "../firebase/firebase";
 
-enum GAME_COLLECTION {
+export enum GAME_COLLECTION {
   OWN,
   WANT_TO_PLAY,
   PLAYED
@@ -38,6 +40,12 @@ const AddToCollections = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
 
+  const [gameIsPresentInCollection, setGameIsPresentInCollection] =
+    useState(false);
+  const [gameBelongsToCollection, setGameBelongsToCollection] = useState("");
+
+  const { gameCollections, setGameCollections } = useContext(GameContext);
+
   const addGameToCollection = async (collectionID) => {
     setIsOpen(false);
     setIsAdding(true);
@@ -45,18 +53,25 @@ const AddToCollections = (props) => {
     try {
       const gameRef = doc(db, "games", "brijenma@gmail.com");
 
+      const gameObj = {
+        gameID: gameID,
+        collectionID: collectionID
+      };
+
       await setDoc(
         gameRef,
         {
-          collection: arrayUnion({
-            gameID: gameID,
-            collectionID: collectionID
-          })
+          collection: arrayUnion(gameObj)
         },
         {
           merge: true
         }
       );
+
+      setGameCollections((prevGameCollections) => [
+        ...prevGameCollections,
+        gameObj
+      ]);
     } catch (e) {
       console.error("Error adding document: ", e);
     } finally {
@@ -64,17 +79,44 @@ const AddToCollections = (props) => {
     }
   };
 
+  const findGameInCollection = () => {
+    const gameObj = gameCollections.find((game) => game.gameID === gameID);
+
+    if (!gameObj) return null;
+
+    setGameIsPresentInCollection(true);
+
+    switch (gameObj.collectionID) {
+      case GAME_COLLECTION.OWN:
+        setGameBelongsToCollection("Own");
+        break;
+      case GAME_COLLECTION.WANT_TO_PLAY:
+        setGameBelongsToCollection("Want to Play");
+        break;
+      case GAME_COLLECTION.PLAYED:
+        setGameBelongsToCollection("Played");
+        break;
+    }
+  };
+
+  useEffect(() => {
+    findGameInCollection();
+  }, []);
+
   return (
     <SpeedDial
       isOpen={isOpen}
-      icon={<Plus />}
+      icon={gameIsPresentInCollection ? <Check /> : <Plus />}
       openIcon={<ShieldClose />}
       onOpen={() => setIsOpen(true)}
       onClose={() => setIsOpen(false)}
       buttonStyle={{
-        backgroundColor: darkColors.blue10
+        backgroundColor: gameIsPresentInCollection
+          ? darkColors.green10
+          : darkColors.blue10
       }}
       loading={isAdding}
+      title={gameBelongsToCollection}
     >
       <SpeedDialAction
         title="Own"

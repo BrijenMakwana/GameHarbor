@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import {
   addDoc,
+  arrayRemove,
   arrayUnion,
   collection,
   doc,
@@ -22,4 +23,4 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
 
-export { addDoc, arrayUnion, collection, db, doc, getDoc, setDoc };
+export { addDoc, arrayRemove, arrayUnion, collection, db, doc, getDoc, setDoc };

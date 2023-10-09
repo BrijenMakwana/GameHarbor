@@ -1,13 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { FlatList } from "react-native";
-import { FAB } from "@rneui/themed";
-import { RefreshCw } from "@tamagui/lucide-icons";
-import { darkColors } from "@tamagui/themes";
 import { Tabs, Text } from "tamagui";
 
+import { GAME_COLLECTION } from "../../components/AddToCollections";
 import CollectionGameCard from "../../components/CollectionGameCard";
 import { MyStack } from "../../components/MyStack";
-import { db, doc, getDoc } from "../../firebase/firebase";
+import { GameContext } from "../../context/context";
+import { arrayRemove, db, doc, getDoc, setDoc } from "../../firebase/firebase";
 
 const TabTitle = (props) => {
   const { title } = props;
@@ -23,7 +22,7 @@ const TabTitle = (props) => {
 };
 
 const TabContent = (props) => {
-  const { value, data } = props;
+  const { value, data, removeGameFromCollection } = props;
 
   return (
     <Tabs.Content
@@ -32,7 +31,12 @@ const TabContent = (props) => {
     >
       <FlatList
         data={data}
-        renderItem={({ item }) => <CollectionGameCard gameID={item.gameID} />}
+        renderItem={({ item }) => (
+          <CollectionGameCard
+            {...item}
+            removeGameFromCollection={removeGameFromCollection}
+          />
+        )}
         keyExtractor={(item) => item.id}
         contentContainerStyle={{
           padding: 10,
@@ -44,55 +48,46 @@ const TabContent = (props) => {
 };
 
 const Collections = () => {
-  const [collections, setCollections] = useState();
-  const [isLoading, setIsLoading] = useState(false);
-
-  const distributeGames = async (games) => {
-    const own = [];
-    const wantToPlay = [];
-    const played = [];
-
-    games.forEach((item) => {
-      switch (item.collectionID) {
-        case 0:
-          own.push(item);
-          break;
-        case 1:
-          wantToPlay.push(item);
-          break;
-        case 2:
-          played.push(item);
-          break;
-      }
-    });
-
-    return {
-      own: own,
-      wantToPlay: wantToPlay,
-      played: played
-    };
-  };
+  const { gameCollections, setGameCollections } = useContext(GameContext);
 
   const getGamesFromCollections = async () => {
-    setIsLoading(true);
-
     try {
       const docRef = doc(db, "games", "brijenma@gmail.com");
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data().collection);
-
-        const collectionObj = await distributeGames(docSnap.data()?.collection);
-        setCollections(collectionObj);
+        setGameCollections(docSnap.data()?.collection);
       } else {
         // docSnap.data() will be undefined in this case
         console.log("No such document!");
       }
     } catch (e) {
       console.log(e);
-    } finally {
-      setIsLoading(false);
+    }
+  };
+
+  const removeGameFromCollection = async (collectionID, gameID) => {
+    try {
+      const gameRef = doc(db, "games", "brijenma@gmail.com");
+
+      await setDoc(
+        gameRef,
+        {
+          collection: arrayRemove({
+            gameID: gameID,
+            collectionID: collectionID
+          })
+        },
+        {
+          merge: true
+        }
+      );
+
+      setGameCollections((prevGameCollections) =>
+        prevGameCollections.filter((game) => game.gameID !== gameID)
+      );
+    } catch (e) {
+      console.error("Error adding document: ", e);
     }
   };
 
@@ -137,28 +132,26 @@ const Collections = () => {
 
         <TabContent
           value="tab1"
-          data={collections?.own}
+          data={gameCollections?.filter(
+            (game) => game.collectionID === GAME_COLLECTION.OWN
+          )}
+          removeGameFromCollection={removeGameFromCollection}
         />
         <TabContent
           value="tab2"
-          data={collections?.wantToPlay}
+          data={gameCollections?.filter(
+            (game) => game.collectionID === GAME_COLLECTION.WANT_TO_PLAY
+          )}
+          removeGameFromCollection={removeGameFromCollection}
         />
         <TabContent
           value="tab3"
-          data={collections?.played}
+          data={gameCollections?.filter(
+            (game) => game.collectionID === GAME_COLLECTION.PLAYED
+          )}
+          removeGameFromCollection={removeGameFromCollection}
         />
       </Tabs>
-
-      <FAB
-        icon={<RefreshCw size="$1" />}
-        placement="right"
-        buttonStyle={{
-          backgroundColor: darkColors.blue10
-        }}
-        size="small"
-        onPress={getGamesFromCollections}
-        loading={isLoading}
-      />
     </MyStack>
   );
 };
