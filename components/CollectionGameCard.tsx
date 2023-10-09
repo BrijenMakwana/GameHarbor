@@ -7,7 +7,7 @@ import { Button } from "tamagui";
 import GameCard from "./GameCard";
 
 const CollectionGameCard = (props) => {
-  const { gameID } = props;
+  const { gameID, collectionID, removeGameFromCollection } = props;
 
   const [game, setGame] = useState({});
 
@@ -32,10 +32,6 @@ const CollectionGameCard = (props) => {
     getGame();
   }, []);
 
-  const removeGameFromCollection = () => {
-    console.log("removed");
-  };
-
   return (
     <ListItem.Swipeable
       rightContent={() => (
@@ -44,7 +40,7 @@ const CollectionGameCard = (props) => {
           icon={Delete}
           theme="red"
           flex={1}
-          onPress={removeGameFromCollection}
+          onPress={() => removeGameFromCollection(collectionID, gameID)}
         >
           Remove
         </Button>
