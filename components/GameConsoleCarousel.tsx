@@ -96,7 +96,7 @@ const GameConsoleCarousel = () => {
     <YStack gap={20}>
       <H3
         textTransform="capitalize"
-        color="$blue10Dark"
+        color="#fff"
       >
         find games for your consoles
       </H3>

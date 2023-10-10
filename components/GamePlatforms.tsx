@@ -9,7 +9,7 @@ const GamePlatforms = (props) => {
     <>
       <H4
         textTransform="capitalize"
-        color="$blue10Dark"
+        color="#fff"
       >
         platforms
       </H4>

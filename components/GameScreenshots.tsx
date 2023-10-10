@@ -37,7 +37,7 @@ const GameScreenshots = (props) => {
     <YStack gap={15}>
       <H4
         textTransform="capitalize"
-        color="$blue10Dark"
+        color="#fff"
         paddingHorizontal={10}
       >
         take a look
