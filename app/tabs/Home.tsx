@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FlatList } from "react-native";
 import { Avatar, Card, Image, XStack, YStack } from "tamagui";
 
@@ -7,6 +7,8 @@ import GameConsoleCarousel from "../../components/GameConsoleCarousel";
 import GameGenres from "../../components/GameGenres";
 import { MyStack } from "../../components/MyStack";
 import UserSheet from "../../components/UserSheet";
+import { GameContext } from "../../context/context";
+import { db, doc, getDoc } from "../../firebase/firebase";
 
 const UserAvatar = () => {
   const [userSheetIsOpen, setUserSheetIsOpen] = useState(false);
@@ -64,6 +66,8 @@ const Home = () => {
   const currentYear = new Date().getFullYear();
   const nextYear = currentYear + 1;
 
+  const { setGameCollections } = useContext(GameContext);
+
   const gameCategories = [
     {
       id: "2",
@@ -81,6 +85,26 @@ const Home = () => {
       apiEndpoint: "https://api.rawg.io/api/games?ordering=-metacritic"
     }
   ];
+
+  const getGamesFromCollections = async () => {
+    try {
+      const docRef = doc(db, "games", "brijenma@gmail.com");
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        setGameCollections(docSnap.data()?.collection);
+      } else {
+        // docSnap.data() will be undefined in this case
+        console.log("No such document!");
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    getGamesFromCollections();
+  }, []);
 
   return (
     <MyStack>
