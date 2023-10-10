@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { FlatList } from "react-native";
 import { Tabs, Text } from "tamagui";
 
@@ -6,7 +6,7 @@ import { GAME_COLLECTION } from "../../components/AddToCollections";
 import CollectionGameCard from "../../components/CollectionGameCard";
 import { MyStack } from "../../components/MyStack";
 import { GameContext } from "../../context/context";
-import { arrayRemove, db, doc, getDoc, setDoc } from "../../firebase/firebase";
+import { arrayRemove, db, doc, setDoc } from "../../firebase/firebase";
 
 const TabTitle = (props) => {
   const { title } = props;
@@ -50,22 +50,6 @@ const TabContent = (props) => {
 const Collections = () => {
   const { gameCollections, setGameCollections } = useContext(GameContext);
 
-  const getGamesFromCollections = async () => {
-    try {
-      const docRef = doc(db, "games", "brijenma@gmail.com");
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        setGameCollections(docSnap.data()?.collection);
-      } else {
-        // docSnap.data() will be undefined in this case
-        console.log("No such document!");
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   const removeGameFromCollection = async (collectionID, gameID) => {
     try {
       const gameRef = doc(db, "games", "brijenma@gmail.com");
@@ -90,10 +74,6 @@ const Collections = () => {
       console.error("Error adding document: ", e);
     }
   };
-
-  useEffect(() => {
-    getGamesFromCollections();
-  }, []);
 
   return (
     <MyStack>

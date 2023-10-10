@@ -49,7 +49,7 @@ const GameCarousel = (props) => {
     <YStack gap={20}>
       <H3
         textTransform="capitalize"
-        color="$blue10Dark"
+        color="#fff"
       >
         {title}
       </H3>

@@ -9,7 +9,7 @@ const GameInfoContainer = (props) => {
     <>
       <H4
         textTransform="capitalize"
-        color="$blue10Dark"
+        color="#fff"
       >
         {data?.length > 1 ? `${title}s` : title}
       </H4>

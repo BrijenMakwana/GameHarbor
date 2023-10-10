@@ -112,7 +112,7 @@ const GameStores = (props) => {
     <>
       <H4
         textTransform="capitalize"
-        color="$blue10Dark"
+        color="#fff"
       >
         buy it from here
       </H4>

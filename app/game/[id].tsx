@@ -255,7 +255,7 @@ const Game = () => {
           gap={15}
           paddingHorizontal={10}
         >
-          <H2 color="$blue10Dark">{game?.name}</H2>
+          <H2 color="#fff">{game?.name}</H2>
 
           {game?.released && (
             <Text>Release {moment(game?.released).fromNow()}</Text>
@@ -285,7 +285,7 @@ const Game = () => {
         >
           <H4
             textTransform="capitalize"
-            color="$blue10Dark"
+            color="#fff"
           >
             overview
           </H4>

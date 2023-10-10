@@ -82,7 +82,7 @@ const GameCreators = (props) => {
     <>
       <H4
         textTransform="capitalize"
-        color="$blue10Dark"
+        color="#fff"
       >
         creators of the game
       </H4>

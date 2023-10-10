@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { ToastAndroid } from "react-native";
 import { SpeedDial } from "@rneui/themed";
 import {
   Check,
@@ -72,6 +73,8 @@ const AddToCollections = (props) => {
         ...prevGameCollections,
         gameObj
       ]);
+
+      ToastAndroid.show("Game Added successfully!", ToastAndroid.SHORT);
     } catch (e) {
       console.error("Error adding document: ", e);
     } finally {
@@ -101,7 +104,7 @@ const AddToCollections = (props) => {
 
   useEffect(() => {
     findGameInCollection();
-  }, []);
+  }, [gameCollections]);
 
   return (
     <SpeedDial
@@ -111,9 +114,7 @@ const AddToCollections = (props) => {
       onOpen={() => setIsOpen(true)}
       onClose={() => setIsOpen(false)}
       buttonStyle={{
-        backgroundColor: gameIsPresentInCollection
-          ? darkColors.green10
-          : darkColors.blue10
+        backgroundColor: darkColors.blue10
       }}
       loading={isAdding}
       title={gameBelongsToCollection}
