@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import { FlatList } from "react-native";
+import { FlatList, Pressable } from "react-native";
+import { darkColors } from "@tamagui/themes";
 import axios from "axios";
 import { Link } from "expo-router";
-import { Avatar, Card, H4, Text } from "tamagui";
+import { Avatar, H4, Text } from "tamagui";
 
 const Creator = (props) => {
   const { id, image, name, positions } = props;
+
   return (
     <Link
       href={{
@@ -14,12 +16,15 @@ const Creator = (props) => {
       }}
       asChild
     >
-      <Card
-        alignItems="center"
-        gap={10}
-        padded
-        theme="blue"
-        pressTheme
+      <Pressable
+        android_ripple={{
+          color: darkColors.gray10
+        }}
+        style={{
+          alignItems: "center",
+          gap: 8,
+          padding: 5
+        }}
       >
         <Avatar
           circular
@@ -44,7 +49,7 @@ const Creator = (props) => {
         >
           {positions[0]?.name}
         </Text>
-      </Card>
+      </Pressable>
     </Link>
   );
 };
