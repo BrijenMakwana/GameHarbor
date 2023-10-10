@@ -55,12 +55,12 @@ const UserSheet = (props) => {
         >
           <H2
             textTransform="capitalize"
-            color="$blue10Dark"
+            color="#fff"
           >
             Brijen makwana
           </H2>
 
-          <Text>brijenma@gmail.com</Text>
+          <Text color="$blue10Dark">brijenma@gmail.com</Text>
         </YStack>
 
         <Button
