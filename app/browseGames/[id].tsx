@@ -96,7 +96,7 @@ const GameListInfo = (props) => {
             </Avatar>
           )}
 
-          <H2 color="$blue10Dark">{name}</H2>
+          <H2 color="#fff">{name}</H2>
         </XStack>
 
         {positions?.length > 0 && <CreatorPositions positions={positions} />}
