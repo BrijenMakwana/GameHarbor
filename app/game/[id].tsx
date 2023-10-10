@@ -1,30 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { HtmlText } from "@e-mine/react-native-html-text";
-import { ChevronDown, ExternalLink } from "@tamagui/lucide-icons";
+import { ExternalLink, Loader2 } from "@tamagui/lucide-icons";
 import { darkColors } from "@tamagui/themes";
 import axios from "axios";
 import { openURL } from "expo-linking";
 import { useLocalSearchParams } from "expo-router";
 import moment from "moment";
 import {
-  Accordion,
   Button,
   Card,
   Circle,
   H2,
   H4,
-  Image,
-  ListItem,
-  Separator,
   Spinner,
   Square,
   Text,
-  XGroup,
   XStack,
   YStack
 } from "tamagui";
 
 import AddToCollections from "../../components/AddToCollections";
+import ESRBRating from "../../components/ESRBRating";
 import GameBanner from "../../components/GameBanner";
 import GameCarousel from "../../components/GameCarousel";
 import GameCreators from "../../components/GameCreators";
@@ -34,63 +30,10 @@ import GameScreenshots from "../../components/GameScreenshots";
 import GameStores from "../../components/GameStores";
 import GameTags from "../../components/GameTags";
 import GameTrailers from "../../components/GameTrailers";
+import Metacritic from "../../components/Metacritic";
 import { MyScroll } from "../../components/MyScroll";
+import PCRequirements from "../../components/PCRequirements";
 import RedditPostsBtn from "../../components/RedditPostsBtn";
-
-const ESRBRating = (props) => {
-  const { slug } = props;
-
-  const ageRatingIcons = {
-    mature: require("../../assets/images/ageRatingIcons/mature.png"),
-    teen: require("../../assets/images/ageRatingIcons/teen.png"),
-    "adults-only": require("../../assets/images/ageRatingIcons/adults.png"),
-    "early-childhood": require("../../assets/images/ageRatingIcons/early-childhood.png"),
-    "everyone-10-plus": require("../../assets/images/ageRatingIcons/everyone-10-plus.png"),
-    "rating-pending": require("../../assets/images/ageRatingIcons/rating-pending.png"),
-    everyone: require("../../assets/images/ageRatingIcons/everyone.png")
-  };
-
-  return (
-    <Image
-      source={ageRatingIcons[slug]}
-      resizeMode="contain"
-      style={{
-        height: 65,
-        width: 45
-      }}
-      position="absolute"
-      zIndex={10}
-      top={10}
-      right={10}
-    />
-  );
-};
-
-const Metacritic = (props) => {
-  const { metacritic, rating } = props;
-  return (
-    <XGroup
-      bordered
-      separator={<Separator vertical />}
-      theme="blue"
-    >
-      <XGroup.Item>
-        <ListItem
-          flex={1}
-          title={metacritic || "NA"}
-          subTitle="Metascore"
-        />
-      </XGroup.Item>
-      <XGroup.Item>
-        <ListItem
-          flex={1}
-          title={rating || "NA"}
-          subTitle="Rating"
-        />
-      </XGroup.Item>
-    </XGroup>
-  );
-};
 
 const Ratings = (props) => {
   const squareColors = {
@@ -155,59 +98,10 @@ const Ratings = (props) => {
   );
 };
 
-const PCRequirements = (props) => {
-  const { platforms } = props;
-
-  const pcRequirements = platforms?.find((item) => item.platform.slug === "pc")
-    ?.requirements;
-
-  if (!pcRequirements || Object.keys(pcRequirements).length === 0) return;
-
-  const pcRequirementsMinimumArray = pcRequirements?.minimum?.split(".");
-  const pcRequirementsRecommendedArray =
-    pcRequirements?.recommended?.split(".");
-
-  return (
-    <Accordion
-      type="multiple"
-      theme="blue"
-      marginTop={10}
-    >
-      <Accordion.Item value="pc">
-        <Accordion.Trigger
-          flexDirection="row"
-          justifyContent="space-between"
-        >
-          {({ open }) => (
-            <>
-              <Text>PC Requirements</Text>
-              <Square
-                animation="quick"
-                rotate={open ? "180deg" : "0deg"}
-              >
-                <ChevronDown />
-              </Square>
-            </>
-          )}
-        </Accordion.Trigger>
-        <Accordion.Content gap={5}>
-          {pcRequirementsMinimumArray?.map((item, index) => (
-            <Text key={index}>{item}</Text>
-          ))}
-
-          {pcRequirementsRecommendedArray?.map((item, index) => (
-            <Text key={index}>{item}</Text>
-          ))}
-        </Accordion.Content>
-      </Accordion.Item>
-    </Accordion>
-  );
-};
-
 const Game = () => {
   const { id } = useLocalSearchParams();
 
-  const [game, setGame] = useState({});
+  const [game, setGame] = useState();
   const [gameIsLoading, setGameIsLoading] = useState(false);
 
   const getGame = async () => {
@@ -242,6 +136,18 @@ const Game = () => {
         size="large"
         color="$blue10Dark"
       />
+    );
+
+  if (!gameIsLoading && !game)
+    return (
+      <Button
+        icon={Loader2}
+        onPress={getGame}
+        alignSelf="center"
+        theme="blue"
+      >
+        Try Again
+      </Button>
     );
 
   return (
