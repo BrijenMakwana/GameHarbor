@@ -5,6 +5,8 @@ import { Link } from "expo-router";
 import moment from "moment";
 import { Card, Image, Text, XStack, YStack } from "tamagui";
 
+import { defaultImageURI } from "../constants/constant";
+
 import GamePlatformIcon from "./GamePlatformIcon";
 
 const GamePlatforms = (props) => {
@@ -105,10 +107,9 @@ const GameCard = (props) => {
         <YStack>
           <Image
             source={{
-              uri: background_image
+              uri: background_image || defaultImageURI
             }}
             aspectRatio={16 / 9}
-            width="100%"
             resizeMode="cover"
             borderTopLeftRadius={10}
             borderTopRightRadius={10}

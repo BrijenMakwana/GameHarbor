@@ -34,6 +34,7 @@ import Metacritic from "../../components/Metacritic";
 import { MyScroll } from "../../components/MyScroll";
 import PCRequirements from "../../components/PCRequirements";
 import RedditPostsBtn from "../../components/RedditPostsBtn";
+import { defaultImageURI } from "../../constants/constant";
 
 const Ratings = (props) => {
   const squareColors = {
@@ -155,7 +156,7 @@ const Game = () => {
       <MyScroll showsVerticalScrollIndicator={false}>
         <ESRBRating {...game?.esrb_rating} />
 
-        <GameBanner url={game?.background_image} />
+        <GameBanner url={game?.background_image || defaultImageURI} />
 
         <YStack
           gap={15}

@@ -48,7 +48,6 @@ const GameConsole = (props) => {
             uri: getConsoleImage()
           }}
           height={230}
-          width="100%"
           resizeMode="cover"
           borderTopLeftRadius={10}
           borderTopRightRadius={10}
