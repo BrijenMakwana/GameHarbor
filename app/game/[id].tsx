@@ -160,6 +160,7 @@ const Game = () => {
         <YStack
           gap={15}
           paddingHorizontal={10}
+          marginTop={5}
         >
           <H2 color="#fff">{game?.name}</H2>
 
