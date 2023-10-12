@@ -16,7 +16,6 @@ const PCRequirements = (props) => {
   return (
     <Accordion
       type="multiple"
-      theme="blue"
       marginTop={10}
     >
       <Accordion.Item value="pc">

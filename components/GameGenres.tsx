@@ -36,7 +36,6 @@ const GameGenres = () => {
       </H3>
       <YGroup
         bordered
-        theme="blue"
         separator={<Separator />}
       >
         {gameGenres?.map((item) => (

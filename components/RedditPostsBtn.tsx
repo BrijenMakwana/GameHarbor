@@ -166,7 +166,6 @@ const RedditPostsBtn = (props) => {
   return (
     <>
       <Button
-        theme="blue"
         onPress={openRedditPostSheet}
         alignSelf="flex-start"
         iconAfter={PanelTopOpen}

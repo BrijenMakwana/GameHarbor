@@ -1,9 +1,11 @@
-import { View } from "react-native";
+import { Image, View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { darkColors } from "@tamagui/themes";
 import { Link } from "expo-router";
 import moment from "moment";
-import { Card, Image, Text, XStack, YStack } from "tamagui";
+import { Card, Text, XStack, YStack } from "tamagui";
+
+import { defaultImageURI } from "../constants/constant";
 
 import GamePlatformIcon from "./GamePlatformIcon";
 
@@ -20,7 +22,7 @@ const GamePlatforms = (props) => {
       paddingVertical={10}
       paddingHorizontal={15}
       gap={10}
-      backgroundColor="$blue3Dark"
+      backgroundColor="$gray3"
       borderRadius={10}
       flexWrap="wrap"
       maxWidth={230}
@@ -46,7 +48,7 @@ const Rating = (props) => {
       <AntDesign
         name="star"
         size={20}
-        color={darkColors.yellow10}
+        color={darkColors.blue10}
       />
 
       <Text fontWeight="500">{rating || "NA"}</Text>
@@ -98,20 +100,21 @@ const GameCard = (props) => {
       asChild
     >
       <Card
-        theme="blue"
+        backgroundColor="$gray3"
         pressTheme
         width={!fullWidth && 270}
       >
         <YStack>
           <Image
             source={{
-              uri: background_image
+              uri: background_image || defaultImageURI
             }}
-            aspectRatio={16 / 9}
-            width="100%"
-            resizeMode="cover"
-            borderTopLeftRadius={10}
-            borderTopRightRadius={10}
+            style={{
+              width: "100%",
+              aspectRatio: 16 / 9,
+              borderTopLeftRadius: 10,
+              borderTopRightRadius: 10
+            }}
           />
 
           <GamePlatforms platforms={parent_platforms} />
