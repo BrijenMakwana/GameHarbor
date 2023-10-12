@@ -1,9 +1,9 @@
-import { View } from "react-native";
+import { Image, View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { darkColors } from "@tamagui/themes";
 import { Link } from "expo-router";
 import moment from "moment";
-import { Card, Image, Text, XStack, YStack } from "tamagui";
+import { Card, Text, XStack, YStack } from "tamagui";
 
 import { defaultImageURI } from "../constants/constant";
 
@@ -109,10 +109,12 @@ const GameCard = (props) => {
             source={{
               uri: background_image || defaultImageURI
             }}
-            aspectRatio={16 / 9}
-            resizeMode="cover"
-            borderTopLeftRadius={10}
-            borderTopRightRadius={10}
+            style={{
+              width: "100%",
+              aspectRatio: 16 / 9,
+              borderTopLeftRadius: 10,
+              borderTopRightRadius: 10
+            }}
           />
 
           <GamePlatforms platforms={parent_platforms} />
