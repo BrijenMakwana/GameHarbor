@@ -63,7 +63,6 @@ const GameStore = (props) => {
   return (
     <Button
       onPress={goToStore}
-      theme="blue"
       icon={
         <MaterialCommunityIcons
           name={storeIconName}

@@ -52,7 +52,6 @@ const Ratings = (props) => {
     <Card
       padded
       gap={15}
-      theme="blue"
     >
       <XStack
         alignItems="center"
@@ -204,7 +203,6 @@ const Game = () => {
           {game?.website && (
             <Button
               iconAfter={ExternalLink}
-              theme="blue"
               onPress={visitGameWebsite}
               alignSelf="center"
             >

@@ -4,11 +4,7 @@ const Metacritic = (props) => {
   const { metacritic, rating } = props;
 
   return (
-    <XGroup
-      bordered
-      separator={<Separator vertical />}
-      theme="blue"
-    >
+    <XGroup separator={<Separator vertical />}>
       <XGroup.Item>
         <ListItem
           flex={1}

@@ -16,7 +16,6 @@ const GameInfoContainer = (props) => {
 
       <YGroup
         bordered
-        theme="blue"
         separator={<Separator />}
       >
         {data?.map((item) => (
