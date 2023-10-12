@@ -39,7 +39,6 @@ const GameConsole = (props) => {
       asChild
     >
       <Card
-        theme="blue"
         pressTheme
         width={170}
       >
