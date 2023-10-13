@@ -1,4 +1,4 @@
-import { ListItem, Separator, XGroup } from "tamagui";
+import { ListItem, Separator, Text, XGroup } from "tamagui";
 
 const Metacritic = (props) => {
   const { metacritic, rating } = props;
@@ -15,7 +15,13 @@ const Metacritic = (props) => {
       <XGroup.Item>
         <ListItem
           flex={1}
-          title={rating || "NA"}
+          title={
+            (
+              <Text color={rating > 3 ? "$green10Dark" : "$red10Dark"}>
+                {rating}
+              </Text>
+            ) || "NA"
+          }
           subTitle="Rating"
         />
       </XGroup.Item>
