@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
-import { Image, View } from "tamagui";
+import { Image, StyleSheet } from "react-native";
+import { View } from "tamagui";
 import { LinearGradient } from "tamagui/linear-gradient";
 
 const GameBanner = (props) => {
